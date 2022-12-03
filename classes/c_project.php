@@ -73,14 +73,10 @@ class Project
         return true;
     }
     //function for creating a new Project financials
-    public static function create_proj_financials($connection, $array)
+    public static function create_proj_financials($connection, $PMID)
     {
-        $PMID = $array[0];
-        $Quantity_Used = $array[1];
-        $Paid_Amount = $array[2];
-
-        $query = $connection->prepare('INSERT INTO t_projectfinancials (PMID,Quantity_Used,Paid_Amount) VALUES (?,?,?)');
-        $query->execute([$PMID, $Quantity_Used, $Paid_Amount]);
+        $query = $connection->prepare('INSERT INTO t_projectfinancials (PMID) VALUES (?)');
+        $query->execute([$PMID]);
     }
     // PROJECT LOCATION SECTION
     // Get All Projects location
@@ -95,29 +91,69 @@ class Project
         return $ProjectLoc;
     }
     // function for deleting a specified Project location
-    public static function delete_proj_location($connection, $PMID, $PFID)
+    public static function delete_proj_location($connection, $Location_ID)
     {
-        $query = $connection->prepare('UPDATE t_projectlocation SET is_deleted = 1, modifieddate = current_timestamp() WHERE PMID = ? AND PFID = ?');
-        $query->execute([$PMID, $PFID]);
+        $query = $connection->prepare('UPDATE t_projectlocation SET is_deleted = 1, modifieddate = current_timestamp() WHERE Location_ID = ?');
+        $query->execute([$Location_ID]);
         return true;
     }
     //function for editing a Project location
-    public static function edit_proj_location($connection, $PMID, $PFID, $Quantity_Used, $Paid_Amount)
+    public static function edit_proj_location($connection, $Location_ID, $Address, $City, $State, $ZipCode)
     {
-        $query = $connection->prepare('UPDATE t_projectlocation SET Quantity_Used = ?, Paid_Amount = ?, modifieddate = current_timestamp() WHERE PMID = ? AND PFID = ?');
-        $query->execute([$Quantity_Used, $Paid_Amount, $PMID, $PFID]);
+        $query = $connection->prepare('UPDATE t_projectlocation SET Address = ?, City = ?,  State = ?, ZipCode = ?, modifieddate = current_timestamp() WHERE Location_ID = ?');
+        $query->execute([$Address, $City, $State, $ZipCode, $Location_ID]);
         return true;
     }
     //function for creating a new Project location
     public static function create_proj_location($connection, $array)
     {
-        $PMID = $array[0];
-        $Quantity_Used = $array[1];
-        $Paid_Amount = $array[2];
+        $Project_ID = $array[0];
+        $Address = $array[1];
+        $City = $array[2];
+        $State = $array[3];
+        $ZipCode = $array[4];
 
-        $query = $connection->prepare('INSERT INTO t_projectlocation () VALUES ()');
-        $query->execute([]);
+        $query = $connection->prepare('INSERT INTO t_projectlocation (Project_ID, Address, City, State, ZipCode) VALUES (?,?,?,?,?)');
+        $query->execute([$Project_ID, $Address, $City, $State, $ZipCode]);
     }
     // PROJECT MATERIALS SECTION
+    // Get All Project Materials
+    public static function get_proj_materials($connection, $Project_ID)
+    {
+        $ProjMaterials = [];
+        $query = $connection->prepare('SELECT * FROM t_projectmaterials WHERE is_deleted = 0 and Project_ID = ?');
+        $query->execute([$Project_ID]);
+        while ($data = $query->fetch()) {
+            $ProjMaterials[] = $data;
+        }
+        return $ProjMaterials;
+    }
+    // function for deleting a specified material
+    public static function delete_proj_material($connection, $Project_ID, $PMID)
+    {
+        $query = $connection->prepare('UPDATE t_projectmaterials SET is_deleted = 1, modifieddate = current_timestamp() WHERE Project_ID = ? and PMID = ?');
+        $query->execute([$Project_ID, $PMID]);
+        return true;
+    }
+    //function for editing a material
+    public static function edit_proj_materials($connection, $Project_ID, $PMID, $Material_ID, $Quantity, $Project_Cost)
+    {
+        $query = $connection->prepare('UPDATE t_projectmaterials SET Material_ID = ?, Quantity = ?, Project_Cost = ?, modifieddate = current_timestamp() WHERE Project_ID = ? and PMID = ?');
+        $query->execute([$Material_ID, $Quantity, $Project_Cost, $Project_ID, $PMID]);
+        return true;
+    }
+    //function for creating a new material
+    public static function create_proj_material($connection, $array)
+    {
+        $proj = new Project();
+        $conn = $connection;
+        $Project_ID = $array[0];
+        $Material_ID = $array[1];
+        $Quantity = $array[2];
+        $Project_Cost = $array[3];
 
+        $query = $connection->prepare('INSERT INTO t_projectmaterials (Project_ID,Material_ID,Quantity,Project_Cost) VALUES (?,?,?,?)');
+        $query->execute([$Project_ID, $Material_ID, $Quantity, $Project_Cost]);
+        $proj->create_proj_financials($conn, $Material_ID); // Create a Proj Financials field when material is added.
+    }
 }
