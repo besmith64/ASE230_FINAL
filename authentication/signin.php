@@ -76,12 +76,11 @@ if (count($_POST) > 0) {
             </div>
         </nav>
     </header>
-    <div class="container" style="padding-top: 80px; background-color: lightgrey;">
+    <div class="container" style="padding-top: 50px; padding-bottom: 50px; background-color: lightgrey;">
         <div id="liveAlertPlaceholder"><?= $error ?></div>
         <h2>Log In</h2>
         <div class="u-form u-login-control u-block-4b94-24">
-            <form method="POST" class="u-clearfix u-form-custom-backend u-form-spacing-10 u-form-vertical u-inner-form"
-                source="custom" name="form" style="padding: 10px">
+            <form method="POST">
                 <div class="mb-3">
                     <label class="form-label">Email address</label>
                     <input type="email" class="form-control" name="email">
