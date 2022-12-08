@@ -1,13 +1,23 @@
 <?php
 
 //class
-//controls user modification for admin role
 require_once('../settings/settings.php');
 
 class Project
 {
     // MAIN SECTION
     // Get All Projects
+    public static function get_projects_all($connection)
+    {
+        $Project = [];
+        $query = $connection->prepare('SELECT * FROM t_project WHERE is_deleted = 0');
+        $query->execute();
+        while ($data = $query->fetch()) {
+            $Project[] = $data;
+        }
+        return $Project;
+    }
+    // Get Projects by ID
     public static function get_project($connection, $Project_ID)
     {
         $Project = [];

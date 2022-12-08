@@ -1,7 +1,6 @@
 <?php
 
 //class
-//controls user modification for admin role
 require_once('../settings/settings.php');
 
 class Materials
@@ -24,14 +23,14 @@ class Materials
         $query->execute([$Material_ID]);
         return true;
     }
-    //function for editing a material
+    // function for editing a material
     public static function edit_materials($connection, $Material_ID, $Material, $Description, $Cost)
     {
         $query = $connection->prepare('UPDATE t_materialslist SET Material_Name = ?, Material_Description = ?, Material_Cost = ?, modifieddate = current_timestamp() WHERE Material_ID = ?');
         $query->execute([$Material, $Description, $Cost, $Material_ID]);
         return true;
     }
-    //function for creating a new material
+    // function for creating a new material
     public static function create_material($connection, $array)
     {
         $Material = $array[0];
