@@ -300,8 +300,70 @@
                             </tbody>
                         </table>
                       </div>
-                      <div class="tab-pane fade" id="v-pills-5" role="tabpanel" aria-labelledby="v-pills-5-tab" tabindex="0"></div>
-                      <div class="tab-pane fade" id="v-pills-6" role="tabpanel" aria-labelledby="v-pills-6-tab" tabindex="0"></div>
+                      <!-- Contractor List Tab -->
+                      <div class="tab-pane fade" id="v-pills-5" role="tabpanel" aria-labelledby="v-pills-5-tab" tabindex="0">
+                        <table class="table table-hover table-responsive">
+                            <thead class="table-dark">
+                                <tr>
+                                  <th scope="col">ID</th>
+                                  <th scope="col">Contractor Name</th>
+                                  <th scope="col">Contractor Description</th>
+                                  <th scope="col">Edit</th>
+                                  <th scope="col">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                  <th scope="row">1</th>
+                                  <td>Lorem ipsum dolor sit amet.</td>
+                                  <td >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil, dolor. Quisquam magni fuga repudiandae consequuntur assumenda? Expedita sint error neque!</td>
+                                  <td>
+                                    <button type="button" id="editContractor" data-bs-target="#EditContractorModal" title="Edit Contractor" data-bs-toggle="modal" class="btn btn-warning btn-small">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </button>
+                                  </td>
+                                  <td>
+                                    <button type="button" id="deleteContractor" data-bs-target="#DeleteContractorModal" title="Delete Contractor" data-bs-toggle="modal" class="btn btn-danger btn-small">
+                                        <i class="fa-solid fa-trash "></i>
+                                    </button>
+                                  </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                      </div>
+                      <!-- Material List Tab -->
+                      <div class="tab-pane fade" id="v-pills-6" role="tabpanel" aria-labelledby="v-pills-6-tab" tabindex="0">
+                        <table class="table table-hover table-responsive">
+                            <thead class="table-dark">
+                                <tr>
+                                  <th scope="col">ID</th>
+                                  <th scope="col">Material Name</th>
+                                  <th scope="col">Material Description</th>
+                                  <th scope="col">Cost</th>
+                                  <th scope="col">Edit</th>
+                                  <th scope="col">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                  <th scope="row">1</th>
+                                  <td>Lorem ipsum dolor sit amet.</td>
+                                  <td >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil, dolor. Quisquam magni fuga repudiandae consequuntur assumenda? Expedita sint error neque!</td>
+                                  <td>150.00</td>
+                                  <td>
+                                    <button type="button" id="editMat" data-bs-target="#EditMatModal" title="Edit Material" data-bs-toggle="modal" class="btn btn-warning btn-small">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </button>
+                                  </td>
+                                  <td>
+                                    <button type="button" id="deleteMat" data-bs-target="#DeleteMatModal" title="Delete Material" data-bs-toggle="modal" class="btn btn-danger btn-small">
+                                        <i class="fa-solid fa-trash "></i>
+                                    </button>
+                                  </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                      </div>
                     </div>
                 </div>
             </div>
@@ -335,7 +397,45 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Are you sure?</br>Once this is done the project cannot be restored.
+                Are you sure?</br>Once this is done the user cannot be restored.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger">Submit</button>
+                <!-- <button type="button" class="btn btn-danger" onclick="foo()">Submit</button> -->
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- Delete Contractor Modal -->
+    <div class="modal fade" id="DeleteContractorModal" tabindex="-1" aria-labelledby="deleteContractorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteContractorModalLabel">Delete Contractor</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure?</br>Once this is done the contractor cannot be restored.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger">Submit</button>
+                <!-- <button type="button" class="btn btn-danger" onclick="foo()">Submit</button> -->
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- Delete Material Modal -->
+    <div class="modal fade" id="DeleteMatModal" tabindex="-1" aria-labelledby="deleteMatModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteMatModalLabel">Delete Material</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure?</br>Once this is done the material cannot be restored.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -354,7 +454,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!-- Add Form -->
+                <!-- Edit Form -->
                 <form class="row">
                     <div class="col-12" style="padding-bottom: 10px;">
                         <label for="inputEmail" class="form-label">Email Address:</label>
@@ -376,6 +476,70 @@
                             <option selected="true">User</option>
                             <option>Admin</option>
                         </select>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- Edit Contractor Modal -->
+    <div class="modal fade" id="EditContractorModal" tabindex="-1" aria-labelledby="editContractorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="editContractorModalLabel">Edit Contractor</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Edit Form -->
+                <form class="row">
+                    <div class="col-12" style="padding-bottom: 10px;">
+                        <label for="inputEdtContractor" class="form-label">Contractor Name:</label>
+                        <input type="email" class="form-control" id="inputEdtContractor">
+                    </div>
+                    <div class="col-12" style="padding-bottom: 10px;">
+                        <label for="inputEdtContractorDesc" class="form-label">Description:</label>
+                        <textarea class="form-control" placeholder="Enter a description..." id="inputEdtContractorDesc" style="height: 100px"></textarea>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- Edit Material Modal -->
+    <div class="modal fade" id="EditMatModal" tabindex="-1" aria-labelledby="editMatModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="editMatModalLabel">Edit Material</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Edit Form -->
+                <form class="row">
+                    <div class="col-12" style="padding-bottom: 10px;">
+                        <label for="inputEdtMat" class="form-label">Material Name:</label>
+                        <input type="email" class="form-control" id="inputEdtMat">
+                    </div>
+                    <div class="col-12">
+                        <label for="inputEdtMatDesc" class="form-label">Description:</label>
+                        <textarea class="form-control" placeholder="Enter a description..." id="inputEdtMatDesc" style="height: 100px"></textarea>
+                    </div>
+                    <div class="col-md-6" style="padding-bottom: 10px;">
+                        <label for="inputEdtMatCost" class="form-label">Cost:</label>
+                        <input type="text" class="form-control" id="inputEdtMatCost" placeholder="0.00">
                     </div>
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary">Save</button>
