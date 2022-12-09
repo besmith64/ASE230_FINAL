@@ -71,3 +71,14 @@ for (let i in states) {
     x = states[i];
     dropdown.append($('<option></option>').attr('value', i).text(x));
 }
+
+// for modal data pass example
+$("#submit").click(function () {
+    var name = $("#search").val();
+    var update = 'https://www.google.com/search?q=' + name
+
+    $('#modalSearchGoogle').val(name);
+    $('#modalSubmit').click(function() {
+      window.location = update
+    });
+  });

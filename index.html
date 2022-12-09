@@ -57,7 +57,9 @@
             </div>
         </nav>
     </header>
-    <div class="container rounded-3" style="padding-top: 50px; padding-bottom: 10px; background-color: rgb(208, 220, 251);">
+    <!-- Main Body -->
+    <div class="container rounded-3 shadow" style="padding-top: 50px; padding-bottom: 10px; background-color: rgb(208, 220, 251);">
+        <!-- Main Nav Tabs -->
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
               <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Home</button>
@@ -70,19 +72,23 @@
             </li>
           </ul>
           <div class="tab-content" id="myTabContent">
+            <!-- Landing Page -->
             <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                 <h4 class="text-center">Welcome to Mr. Fixit!</h4>
                 <h6 class="text-center"><i>A website dedicated to project management, allowing engineers to create and manage projects.</i></h6>
                 <hr class="border border-primary border-1 opacity-75">
                 <p style="font-size: 12px;">When using Mr. Fixit you can track materials used, location of the project, as well as monitor the total cost of the project and how much has been spent so far. Managing a project can be complicated and overwhelming and Mr. Fixit is here to make things easier for you.</br></br>To start working on a project simply sign up and start building your future projects!</p> 
             </div>
-            <div class="tab-pane fade" id="project-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+            <!-- Project Tab -->
+            <div class="tab-pane fade" id="project-tab-pane" role="tabpanel" aria-labelledby="project-tab" tabindex="0">
                 <div class="d-grid gap-2 col-4 mx-auto" style="padding-top: 10px; padding-bottom: 10px;" >
                     <!-- <a href="https://www.google.com" type="button" class="btn btn-primary btn-lg">Create a New Project</a> -->
+                    <!-- Create a new project -->
                     <button type="button" id="createProj" data-bs-target="#CreateProjModal" title="Create Project" data-bs-toggle="modal" class="btn btn-primary btn-lg">
                         <i class="fa-solid fa-square-plus"></i> Create a New Project
                     </button>
                 </div>
+                <!-- List of users Projects -->
                 <table class="table table-hover table-responsive">
                     <thead class="table-dark">
                         <tr>
@@ -130,9 +136,11 @@
                     </tbody>
                 </table>
             </div>
+            <!-- Admin Nav Tab -->
             <!-- <div id="div1"><h2>Let jQuery AJAX Change This Text</h2></div> -->
             <div class="tab-pane fade" id="admin-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
                 <div class="d-flex align-items-start">
+                    <!-- Admin Nav Tabs -->
                     <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                       <button class="nav-link active" id="v-pills-1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-1" type="button" role="tab" aria-controls="v-pills-1" aria-selected="true">User Management</button>
                       <button class="nav-link" id="v-pills-2-tab" data-bs-toggle="pill" data-bs-target="#v-pills-2" type="button" role="tab" aria-controls="v-pills-2" aria-selected="false">Add Contractor</button>
@@ -140,10 +148,137 @@
                       <button class="nav-link" id="v-pills-4-tab" data-bs-toggle="pill" data-bs-target="#v-pills-4" type="button" role="tab" aria-controls="v-pills-4" aria-selected="false">All Projects</button>
                     </div>
                     <div class="tab-content" id="v-pills-tabContent">
-                      <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab" tabindex="0">...</div>
-                      <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab" tabindex="0">...</div>
+                      <!-- User Management Tab -->
+                      <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab" tabindex="0">
+                        <table class="table table-hover table-responsive">
+                            <thead class="table-dark">
+                                <tr>
+                                  <th scope="col">#</th>
+                                  <th scope="col">Group</th>
+                                  <th scope="col">Email</th>
+                                  <th scope="col">Full Name</th>
+                                  <th scope="col">Edit</th>
+                                  <th scope="col">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                  <th scope="row">1</th>
+                                  <td>Admin</td>
+                                  <td >smithb77@mymail.nku.edu</td>
+                                  <td>Benjamin Smith</td>
+                                  <td>
+                                    <button type="button" id="editUser" data-bs-target="#EditUserModal" title="Edit User" data-bs-toggle="modal" class="btn btn-warning btn-small">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </button>
+                                  </td>
+                                  <td>
+                                    <button type="button" id="deleteUser" data-bs-target="#DeleteUserModal" title="Delete User" data-bs-toggle="modal" class="btn btn-danger btn-small">
+                                        <i class="fa-solid fa-trash "></i>
+                                    </button>
+                                  </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>User</td>
+                                    <td >JaneDoe@gmail.com</td>
+                                    <td>Jane Doe</td>
+                                    <td>
+                                        <button type="button" id="editUser" data-bs-target="#EditUserModal" title="Edit User" data-bs-toggle="modal" class="btn btn-warning btn-small">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" id="deleteUser" data-bs-target="#DeleteUserModal" title="Delete User" data-bs-toggle="modal" class="btn btn-danger btn-small">
+                                            <i class="fa-solid fa-trash "></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>User</td>
+                                    <td >jsmith@gmail.com</td>
+                                    <td>John Smith</td>
+                                    <td>
+                                        <button type="button" id="editUser" data-bs-target="#EditUserModal" title="Edit User" data-bs-toggle="modal" class="btn btn-warning btn-small">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" id="deleteUser" data-bs-target="#DeleteUserModal" title="Delete User" data-bs-toggle="modal" class="btn btn-danger btn-small">
+                                            <i class="fa-solid fa-trash "></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                      </div>
+                      <!--Add Contractor Tab -->
+                      <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab" tabindex="0">
+                        <form class="row g-3">
+                                <div class="col-12">
+                                <label for="inputContractor" class="form-label">Contractor Name:</label>
+                                <input type="text" class="form-control" id="inputContractor" placeholder="Enter a new contractor name">
+                            </div>
+                            <div class="col-12">
+                                <textarea class="form-control" placeholder="Enter a description..." id="floatingTextarea" style="height: 100px"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">Create</button>
+                            </div>
+                        </form>
+                      </div>
+                      <!-- Add Material Tab -->
                       <div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-3-tab" tabindex="0">...</div>
-                      <div class="tab-pane fade" id="v-pills-4" role="tabpanel" aria-labelledby="v-pills-4-tab" tabindex="0">...</div>
+                      <!-- All Projects Tab -->
+                      <div class="tab-pane fade" id="v-pills-4" role="tabpanel" aria-labelledby="v-pills-4-tab" tabindex="0">
+                        <table class="table table-hover table-responsive">
+                            <thead class="table-dark">
+                                <tr>
+                                  <th scope="col">#</th>
+                                  <th scope="col">Project Name</th>
+                                  <th scope="col">Description</th>
+                                  <th scope="col">Total Cost</th>
+                                  <th scope="col">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                  <th scope="row">1</th>
+                                  <td>Test Project 1</td>
+                                  <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint adipisci similique nulla molestiae, eius earum nobis fugit nisi voluptate molestias?</td>
+                                  <td>$1500.00</td>
+                                  <td>
+                                    <button type="button" id="deleteProject" data-bs-target="#DeleteModal" title="Delete Project" data-bs-toggle="modal" class="btn btn-danger btn-small">
+                                        <i class="fa-solid fa-trash "></i>
+                                    </button>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th scope="row">2</th>
+                                  <td>Test Project 2</td>
+                                  <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est earum tempora amet officia dolor veritatis, dolores in facere accusamus a?</td>
+                                  <td>$20,000.00</td>
+                                  <td>
+                                    <button type="button" id="deleteProject" data-bs-target="#DeleteModal" title="Delete Project" data-bs-toggle="modal" class="btn btn-danger btn-small">
+                                        <i class="fa-solid fa-trash "></i>
+                                    </button>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th scope="row">3</th>
+                                  <td>Test Project 3</td>
+                                  <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est earum tempora amet officia dolor veritatis, dolores in facere accusamus a?</td>
+                                  <td>$100,000.00</td>
+                                  <td>
+                                    <button type="button" id="deleteProject" data-bs-target="#DeleteModal" title="Delete Project" data-bs-toggle="modal" class="btn btn-danger btn-small">
+                                        <i class="fa-solid fa-trash "></i>
+                                    </button>
+                                  </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                      </div>
                     </div>
                 </div>
             </div>
@@ -164,6 +299,68 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-danger">Submit</button>
                 <!-- <button type="button" class="btn btn-danger" onclick="foo()">Submit</button> -->
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- Delete User Modal -->
+    <div class="modal fade" id="DeleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteUserModalLabel">Delete User</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure?</br>Once this is done the project cannot be restored.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger">Submit</button>
+                <!-- <button type="button" class="btn btn-danger" onclick="foo()">Submit</button> -->
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- Edit User Modal -->
+    <div class="modal fade" id="EditUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="editUserModalLabel">Edit User</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Add Form -->
+                <form class="row">
+                    <div class="col-12" style="padding-bottom: 10px;">
+                        <label for="inputEmail" class="form-label">Email Address:</label>
+                        <input type="email" class="form-control" id="inputEmail" placeholder="Test@gmail.com" disabled readonly>
+                    </div>
+                    <div class="row" style="padding-bottom: 10px;">
+                        <div class="col-md-6">
+                            <label for="inputFName" class="form-label">First Name:</label>
+                            <input type="text" class="form-control" id="inputFName" placeholder="">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputLName" class="form-label">Last Name.:</label>
+                            <input type="text" class="form-control" id="inputLName" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-md-6" style="padding-bottom: 10px;">
+                        <label for="inputGroup" class="form-label">Group:</label>
+                        <select id="inputGroup" class="form-select" name="group">
+                            <option selected="true">User</option>
+                            <option>Admin</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
         </div>
