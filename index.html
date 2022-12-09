@@ -146,6 +146,8 @@
                       <button class="nav-link" id="v-pills-2-tab" data-bs-toggle="pill" data-bs-target="#v-pills-2" type="button" role="tab" aria-controls="v-pills-2" aria-selected="false">Add Contractor</button>
                       <button class="nav-link" id="v-pills-3-tab" data-bs-toggle="pill" data-bs-target="#v-pills-3" type="button" role="tab" aria-controls="v-pills-3" aria-selected="false">Add Material</button>
                       <button class="nav-link" id="v-pills-4-tab" data-bs-toggle="pill" data-bs-target="#v-pills-4" type="button" role="tab" aria-controls="v-pills-4" aria-selected="false">All Projects</button>
+                      <button class="nav-link" id="v-pills-5-tab" data-bs-toggle="pill" data-bs-target="#v-pills-5" type="button" role="tab" aria-controls="v-pills-5" aria-selected="false">All Contractors</button>
+                      <button class="nav-link" id="v-pills-6-tab" data-bs-toggle="pill" data-bs-target="#v-pills-6" type="button" role="tab" aria-controls="v-pills-6" aria-selected="false">All Materials</button>
                     </div>
                     <div class="tab-content" id="v-pills-tabContent">
                       <!-- User Management Tab -->
@@ -217,11 +219,12 @@
                       <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab" tabindex="0">
                         <form class="row g-3">
                                 <div class="col-12">
-                                <label for="inputContractor" class="form-label">Contractor Name:</label>
+                                <label for="inputContractor" class="form-label">Contractor:</label>
                                 <input type="text" class="form-control" id="inputContractor" placeholder="Enter a new contractor name">
                             </div>
                             <div class="col-12">
-                                <textarea class="form-control" placeholder="Enter a description..." id="floatingTextarea" style="height: 100px"></textarea>
+                                <label for="inputNewContDesc" class="form-label">Description:</label>
+                                <textarea class="form-control" placeholder="Enter a description..." id="inputNewContDesc" style="height: 100px"></textarea>
                             </div>
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary">Create</button>
@@ -229,7 +232,25 @@
                         </form>
                       </div>
                       <!-- Add Material Tab -->
-                      <div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-3-tab" tabindex="0">...</div>
+                      <div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-3-tab" tabindex="0">
+                        <form class="row g-3">
+                            <div class="col-12">
+                                <label for="inputNewMat" class="form-label">Material:</label>
+                                <input type="text" class="form-control" id="inputNewMat" placeholder="Enter a new material name">
+                            </div>
+                            <div class="col-12">
+                                <label for="inputNewMatDesc" class="form-label">Description:</label>
+                                <textarea class="form-control" placeholder="Enter a description..." id="inputNewMatDesc" style="height: 100px"></textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputNewMatCost" class="form-label">Cost:</label>
+                                <input type="text" class="form-control" id="inputNewMatCost" placeholder="0.00">
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">Create</button>
+                            </div>
+                        </form>
+                      </div>
                       <!-- All Projects Tab -->
                       <div class="tab-pane fade" id="v-pills-4" role="tabpanel" aria-labelledby="v-pills-4-tab" tabindex="0">
                         <table class="table table-hover table-responsive">
@@ -279,6 +300,8 @@
                             </tbody>
                         </table>
                       </div>
+                      <div class="tab-pane fade" id="v-pills-5" role="tabpanel" aria-labelledby="v-pills-5-tab" tabindex="0"></div>
+                      <div class="tab-pane fade" id="v-pills-6" role="tabpanel" aria-labelledby="v-pills-6-tab" tabindex="0"></div>
                     </div>
                 </div>
             </div>
