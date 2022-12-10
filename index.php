@@ -21,7 +21,27 @@ if ($logged == 1 && $_SESSION['GID'] == 1) {
     $user = new User();
     $contractors = new Contractor();
     $materials = new Materials();
+
+    $userArray = $user->get_users($connection);
+    $contractorsArray = $contractors->get_contractor($connection);
+    $materialsArray = $materials->get_materials($connection);
+    $projectArrayAll = $project->get_projects_all($connection);
+
+    //Add New Material
+    if (isset($_POST['matSubmit'])) {
+        try {
+            $values = array(
+                $_POST['inputNewMat'],
+                $_POST['inputNewMatDesc'],
+                $_POST['inputNewMatCost']
+            );
+            $materials->create_material($connection, $values);
+        } catch (Exception $ex) {
+            echo $ex->getMessage();
+        }
+    }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -228,11 +248,12 @@ The code shoud not:
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php foreach ($userArray as $key => $val) : ?>
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td>Admin</td>
-                                        <td>smithb77@mymail.nku.edu</td>
-                                        <td>Benjamin Smith</td>
+                                        <th scope="row"><?= $val['UID']; ?></th>
+                                        <td><?= ($val['GID'] == 1) ? 'Admin' : 'User'; ?></td>
+                                        <td><?= $val['email']; ?></td>
+                                        <td><?= $val['firstname'] . ' ' . $val['lastname']; ?></td>
                                         <td>
                                             <button type="button" id="editUser" data-bs-target="#EditUserModal"
                                                 title="Edit User" data-bs-toggle="modal"
@@ -248,46 +269,7 @@ The code shoud not:
                                             </button>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>User</td>
-                                        <td>JaneDoe@gmail.com</td>
-                                        <td>Jane Doe</td>
-                                        <td>
-                                            <button type="button" id="editUser" data-bs-target="#EditUserModal"
-                                                title="Edit User" data-bs-toggle="modal"
-                                                class="btn btn-warning btn-small">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </button>
-                                        </td>
-                                        <td>
-                                            <button type="button" id="deleteUser" data-bs-target="#DeleteUserModal"
-                                                title="Delete User" data-bs-toggle="modal"
-                                                class="btn btn-danger btn-small">
-                                                <i class="fa-solid fa-trash "></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>User</td>
-                                        <td>jsmith@gmail.com</td>
-                                        <td>John Smith</td>
-                                        <td>
-                                            <button type="button" id="editUser" data-bs-target="#EditUserModal"
-                                                title="Edit User" data-bs-toggle="modal"
-                                                class="btn btn-warning btn-small">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </button>
-                                        </td>
-                                        <td>
-                                            <button type="button" id="deleteUser" data-bs-target="#DeleteUserModal"
-                                                title="Delete User" data-bs-toggle="modal"
-                                                class="btn btn-danger btn-small">
-                                                <i class="fa-solid fa-trash "></i>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -313,23 +295,24 @@ The code shoud not:
                         <!-- Add Material Tab -->
                         <div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-3-tab"
                             tabindex="0">
-                            <form class="row g-3">
+                            <form class="row g-3" method="POST">
                                 <div class="col-12">
                                     <label for="inputNewMat" class="form-label">Material:</label>
-                                    <input type="text" class="form-control" id="inputNewMat"
+                                    <input type="text" class="form-control" id="inputNewMat" name="inputNewMat"
                                         placeholder="Enter a new material name">
                                 </div>
                                 <div class="col-12">
                                     <label for="inputNewMatDesc" class="form-label">Description:</label>
                                     <textarea class="form-control" placeholder="Enter a description..."
-                                        id="inputNewMatDesc" style="height: 100px"></textarea>
+                                        id="inputNewMatDesc" name="inputNewMatDesc" style="height: 100px"></textarea>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="inputNewMatCost" class="form-label">Cost:</label>
-                                    <input type="text" class="form-control" id="inputNewMatCost" placeholder="0.00">
+                                    <input type="text" class="form-control" id="inputNewMatCost" name="inputNewMatCost"
+                                        placeholder="0.00">
                                 </div>
                                 <div class="col-12">
-                                    <button type="submit" class="btn btn-primary">Create</button>
+                                    <button type="submit" name="matSubmit" class="btn btn-primary">Create</button>
                                 </div>
                             </form>
                         </div>
@@ -342,18 +325,18 @@ The code shoud not:
                                         <th scope="col">#</th>
                                         <th scope="col">Project Name</th>
                                         <th scope="col">Description</th>
-                                        <th scope="col">Total Cost</th>
+                                        <th scope="col">Address</th>
                                         <th scope="col">Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Test Project 1</td>
-                                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint adipisci
-                                            similique nulla molestiae, eius earum nobis fugit nisi voluptate molestias?
+                                    <?php foreach ($projectArrayAll as $key => $val) : ?>
+                                    <tr onclick="document.location = `<?= 'project.php?ID=' . $val['Project_ID']; ?>`;">
+                                        <th scope="row"><?= $val['Project_ID']; ?></th>
+                                        <td><?= $val['Project_Name']; ?></td>
+                                        <td><?= $val['Project_Description']; ?></td>
+                                        <td><?= $val['Address'] . ' ' . $val['City'] . ', ' . $val['State'] . ' ' . $val['ZipCode']; ?>
                                         </td>
-                                        <td>$1500.00</td>
                                         <td>
                                             <button type="button" id="deleteProject" data-bs-target="#DeleteModal"
                                                 title="Delete Project" data-bs-toggle="modal"
@@ -362,34 +345,7 @@ The code shoud not:
                                             </button>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Test Project 2</td>
-                                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est earum tempora
-                                            amet officia dolor veritatis, dolores in facere accusamus a?</td>
-                                        <td>$20,000.00</td>
-                                        <td>
-                                            <button type="button" id="deleteProject" data-bs-target="#DeleteModal"
-                                                title="Delete Project" data-bs-toggle="modal"
-                                                class="btn btn-danger btn-small">
-                                                <i class="fa-solid fa-trash "></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Test Project 3</td>
-                                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est earum tempora
-                                            amet officia dolor veritatis, dolores in facere accusamus a?</td>
-                                        <td>$100,000.00</td>
-                                        <td>
-                                            <button type="button" id="deleteProject" data-bs-target="#DeleteModal"
-                                                title="Delete Project" data-bs-toggle="modal"
-                                                class="btn btn-danger btn-small">
-                                                <i class="fa-solid fa-trash "></i>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -407,12 +363,11 @@ The code shoud not:
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php foreach ($contractorsArray as $key => $val) : ?>
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td>Lorem ipsum dolor sit amet.</td>
-                                        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil, dolor.
-                                            Quisquam magni fuga repudiandae consequuntur assumenda? Expedita sint error
-                                            neque!</td>
+                                        <th scope="row"><?= $val['Contractor_ID']; ?></th>
+                                        <td><?= $val['Contractor_Name']; ?></td>
+                                        <td><?= $val['Contractor_Description']; ?></td>
                                         <td>
                                             <button type="button" id="editContractor"
                                                 data-bs-target="#EditContractorModal" title="Edit Contractor"
@@ -428,6 +383,7 @@ The code shoud not:
                                             </button>
                                         </td>
                                     </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -446,13 +402,12 @@ The code shoud not:
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php foreach ($materialsArray as $key => $val) : ?>
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td>Lorem ipsum dolor sit amet.</td>
-                                        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil, dolor.
-                                            Quisquam magni fuga repudiandae consequuntur assumenda? Expedita sint error
-                                            neque!</td>
-                                        <td>150.00</td>
+                                        <th scope="row"><?= $val['Material_ID']; ?></th>
+                                        <td><?= $val['Material_Name']; ?></td>
+                                        <td><?= $val['Material_Description']; ?></td>
+                                        <td><?= $val['Material_Cost']; ?></td>
                                         <td>
                                             <button type="button" id="editMat" data-bs-target="#EditMatModal"
                                                 title="Edit Material" data-bs-toggle="modal"
@@ -468,6 +423,7 @@ The code shoud not:
                                             </button>
                                         </td>
                                     </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
