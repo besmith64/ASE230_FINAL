@@ -1,7 +1,6 @@
 <?php
 
 //class
-require_once('../settings/settings.php');
 
 class Materials
 {

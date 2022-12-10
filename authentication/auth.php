@@ -1,8 +1,5 @@
 <?php
 
-//settings for authentication
-require_once('../settings/settings.php');
-
 function signup($connection, $GID, $email, $password, $fname, $lname)
 {
 	$query = $connection->prepare('SELECT * FROM t_user WHERE email=?'); // ? denotes parameter to be passed
@@ -48,14 +45,4 @@ function is_logged()
 	} else {
 		return false;
 	}
-}
-
-function is_admin($connection, $email)
-{
-	$query = $connection->prepare('SELECT * FROM t_user WHERE email=?'); // ? denotes parameter to be passed
-	$query->execute([$email]); // check if user exists
-
-	$result = $query->fetch();
-	if ($result['GID'] == 1) return true; // check if user is admin
-	else false;
 }

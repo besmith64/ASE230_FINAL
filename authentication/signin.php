@@ -25,6 +25,7 @@ if (count($_POST) > 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8" />
     <title>Sign In</title>
+    <link rel="icon" type="image/x-icon" href="../settings/favicon.ico">
     <link rel="stylesheet" href="css/nicepage.css" media="screen" />
     <link rel="stylesheet" href="css/login.css" media="screen" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -42,11 +43,12 @@ if (count($_POST) > 0) {
     <meta property="og:type" content="website" />
 </head>
 
-<body class="u-body u-xl-mode" data-lang="en">
+<body class="u-body u-xl-mode" data-lang="en"
+    style="background-image: url('../settings/background.jpg'); background-size: cover;">
     <header>
         <nav class="navbar bg-light fixed-top">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.php"><i class="fa-solid fa-wrench"></i> Mr. Fixit!</a>
+                <a class="navbar-brand" href="../index.php"><i class="fa-solid fa-wrench"></i> Mr. Fixit!</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"></span>
@@ -62,7 +64,7 @@ if (count($_POST) > 0) {
                     <div class="offcanvas-body">
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+                                <a class="nav-link active" aria-current="page" href="../index.php">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="signin.php">Login</a>
@@ -76,9 +78,9 @@ if (count($_POST) > 0) {
             </div>
         </nav>
     </header>
-    <div class="container" style="padding-top: 50px; padding-bottom: 50px; background-color: lightgrey;">
+    <div class="container shadow" style="padding-top: 50px; padding-bottom: 50px; background-color: lightgrey;">
         <div id="liveAlertPlaceholder"><?= $error ?></div>
-        <h2>Log In</h2>
+        <h2 style="padding-top: 10px;">Log In</h2>
         <div class="u-form u-login-control u-block-4b94-24">
             <form method="POST">
                 <div class="mb-3">

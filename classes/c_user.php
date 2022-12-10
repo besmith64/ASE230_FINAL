@@ -2,7 +2,6 @@
 
 //class
 //controls user modification for admin role
-require_once('../settings/settings.php');
 
 class User
 {

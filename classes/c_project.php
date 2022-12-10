@@ -1,7 +1,6 @@
 <?php
 
 //class
-require_once('../settings/settings.php');
 
 class Project
 {
@@ -28,6 +27,17 @@ class Project
         }
         return $Project;
     }
+    // Get Projects by User
+    public static function get_project_by_user($connection, $UID)
+    {
+        $Project = [];
+        $query = $connection->prepare('SELECT * FROM t_project WHERE is_deleted = 0 and Created_By = ?');
+        $query->execute([$UID]);
+        while ($data = $query->fetch()) {
+            $Project[] = $data;
+        }
+        return $Project;
+    }
     // function for deleting a specified Project
     public static function delete_project($connection, $Project_ID)
     {
@@ -48,11 +58,14 @@ class Project
         $Project_Name = $array[0];
         $Description = $array[1];
         $Created_By = $array[2];
-        $Location_ID = $array[3];
-        $Contractor_ID = $array[4];
+        $Contractor_ID = $array[3];
+        $Address = $array[4];
+        $City = $array[5];
+        $State = $array[6];
+        $ZipCode = $array[7];
 
-        $query = $connection->prepare('INSERT INTO t_project (Project_Name,Project_Description,Created_By,Location_ID,Contractor_ID) VALUES (?,?,?,?,?)');
-        $query->execute([$Project_Name, $Description, $Created_By, $Location_ID, $Contractor_ID]);
+        $query = $connection->prepare('INSERT INTO t_project (Project_Name,Project_Description,Created_By,Contractor_ID,Address,City,State,ZipCode) VALUES (?,?,?,?,?,?,?,?)');
+        $query->execute([$Project_Name, $Description, $Created_By, $Contractor_ID, $Address, $City, $State, $ZipCode]);
     }
 
     // PROJECT FINANCIALS SECTION
@@ -88,45 +101,8 @@ class Project
         $query = $connection->prepare('INSERT INTO t_projectfinancials (PMID) VALUES (?)');
         $query->execute([$PMID]);
     }
-    // PROJECT LOCATION SECTION
-    // Get All Projects location
-    public static function get_proj_location($connection, $Project_ID)
-    {
-        $ProjectLoc = [];
-        $query = $connection->prepare('SELECT * FROM t_projectlocation WHERE is_deleted = 0 and Project_ID = ?');
-        $query->execute([$Project_ID]);
-        while ($data = $query->fetch()) {
-            $ProjectLoc[] = $data;
-        }
-        return $ProjectLoc;
-    }
-    // function for deleting a specified Project location
-    public static function delete_proj_location($connection, $Location_ID)
-    {
-        $query = $connection->prepare('UPDATE t_projectlocation SET is_deleted = 1, modifieddate = current_timestamp() WHERE Location_ID = ?');
-        $query->execute([$Location_ID]);
-        return true;
-    }
-    //function for editing a Project location
-    public static function edit_proj_location($connection, $Location_ID, $Address, $City, $State, $ZipCode)
-    {
-        $query = $connection->prepare('UPDATE t_projectlocation SET Address = ?, City = ?,  State = ?, ZipCode = ?, modifieddate = current_timestamp() WHERE Location_ID = ?');
-        $query->execute([$Address, $City, $State, $ZipCode, $Location_ID]);
-        return true;
-    }
-    //function for creating a new Project location
-    public static function create_proj_location($connection, $array)
-    {
-        $Project_ID = $array[0];
-        $Address = $array[1];
-        $City = $array[2];
-        $State = $array[3];
-        $ZipCode = $array[4];
-
-        $query = $connection->prepare('INSERT INTO t_projectlocation (Project_ID, Address, City, State, ZipCode) VALUES (?,?,?,?,?)');
-        $query->execute([$Project_ID, $Address, $City, $State, $ZipCode]);
-    }
     // PROJECT MATERIALS SECTION
+
     // Get All Project Materials
     public static function get_proj_materials($connection, $Project_ID)
     {
