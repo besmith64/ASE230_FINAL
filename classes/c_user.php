@@ -16,6 +16,14 @@ class User
         }
         return $Users;
     }
+    // Get Users by ID
+    public static function get_users_by_id($connection, $ID)
+    {
+        $query = $connection->prepare('SELECT * FROM t_user WHERE is_deleted = 0 and UID = ?');
+        $query->execute([$ID]);
+        $data = $query->fetch();
+        return $data;
+    }
     // function for deleting a specified user
     public static function delete_user($connection, $UID)
     {

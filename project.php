@@ -2,6 +2,7 @@
 // Load all of the php scripts
 require_once('settings/settings.php');
 require_once('classes/c_project.php');
+require_once('classes/c_user.php');
 
 if (!count($_SESSION) > 0 && !is_numeric($_SESSION['ID'])) {
     header('location: index.php');
@@ -12,6 +13,11 @@ $logged = 0;
 // print_r($_COOKIE['user']);
 if (count($_SESSION) > 0 && is_numeric($_SESSION['ID'])) {
     $logged = 1;
+    $project = new Project();
+    $projectArray = $project->get_project($connection, $_GET['ID']);
+
+    $user = new User();
+    $get_user = $user->get_users_by_id($connection, $projectArray['Created_By']);
 }
 
 ?>
@@ -108,39 +114,39 @@ if (count($_SESSION) > 0 && is_numeric($_SESSION['ID'])) {
                     <!-- Project Information -->
                     <h4>Project Details</h4>
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-4">
                             <p class="text-left"><strong>Project Name:</strong></p>
                         </div>
-                        <div class="col-10">
-                            <p class="text-left">Test Project 1</p>
+                        <div class="col-8">
+                            <p class="text-left"><?= $projectArray['Project_Name'] ?></p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-4">
                             <p class="text-left"><strong>Description:</strong></p>
                         </div>
-                        <div class="col-10">
-                            <p class="text-left">Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
-                                aliquam sunt, sapiente exercitationem nemo tempore rem. Perferendis soluta fuga
-                                veritatis.</p>
+                        <div class="col-8">
+                            <p class="text-left"><?= $projectArray['Project_Description'] ?></p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-4">
                             <p class="text-left"><strong>Project Manager:</strong></p>
                         </div>
-                        <div class="col-10">
-                            <p class="text-left">Benjamin Smith</p>
+                        <div class="col-8">
+                            <p class="text-left"><?= $get_user['firstname'] . ' ' . $get_user['lastname'] ?></p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-4">
                             <p class="text-left"><strong>Address:</strong></p>
                         </div>
-                        <div class="col-10">
+                        <div class="col-8">
                             <address class="text-left">
-                                123 Main St.</br>
-                                Cincinnati, OH 45248
+                                <?= $projectArray['Address'] . '</br>' .
+                                    $projectArray['City'] . ', ' .
+                                    $projectArray['State'] . ' ' .
+                                    $projectArray['ZipCode'] ?>
                             </address>
                         </div>
                     </div>

@@ -22,10 +22,8 @@ class Project
         $Project = [];
         $query = $connection->prepare('SELECT * FROM t_project WHERE is_deleted = 0 and Project_ID = ?');
         $query->execute([$Project_ID]);
-        while ($data = $query->fetch()) {
-            $Project[] = $data;
-        }
-        return $Project;
+        $data = $query->fetch();
+        return $data;
     }
     // Get Projects by User
     public static function get_project_by_user($connection, $UID)

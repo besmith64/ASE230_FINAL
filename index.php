@@ -201,12 +201,20 @@ The code shoud not:
                     </thead>
                     <tbody>
                         <?php foreach ($projectArray as $key => $val) : ?>
-                        <tr onclick="document.location = `<?= 'project.php?ID=' . $val['Project_ID']; ?>`;">
-                            <th scope="row"><?= $val['Project_ID']; ?></th>
-                            <td><?= $val['Project_Name']; ?></td>
-                            <td><?= $val['Project_Description']; ?></td>
-                            <td><?= $val['Address'] . ' ' . $val['City'] . ', ' . $val['State'] . ' ' . $val['ZipCode']; ?>
-                            </td>
+                        <tr>
+                            <th scope="row"><a href="<?= 'project.php?ID=' . $val['Project_ID']; ?>"
+                                    style="text-decoration:none; color:inherit;"><?= $val['Project_ID']; ?></a>
+                            </th>
+                            <td><a href="<?= 'project.php?ID=' . $val['Project_ID']; ?>"
+                                    style="text-decoration:none; color:inherit;"
+                                    tabindex="-1"><?= $val['Project_Name']; ?></a></td>
+                            <td><a href="<?= 'project.php?ID=' . $val['Project_ID']; ?>"
+                                    style="text-decoration:none; color:inherit;"
+                                    tabindex="-1"><?= $val['Project_Description']; ?></a></td>
+                            <td><a href="<?= 'project.php?ID=' . $val['Project_ID']; ?>"
+                                    style="text-decoration:none; color:inherit;"
+                                    tabindex="-1"><?= $val['Address'] . ' ' . $val['City'] . ', ' . $val['State'] . ' ' . $val['ZipCode']; ?>
+                                </a></td>
                             <td>
                                 <button type="button" id="deleteProject" data-bs-target="#DeleteModal"
                                     title="Delete Project" data-bs-toggle="modal" class="btn btn-danger btn-small">
@@ -217,6 +225,7 @@ The code shoud not:
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                <div class="h6"><i class="fa-regular fa-comment"></i> Click a row to see project details.</div>
             </div>
             <!-- Admin Nav Tab -->
             <!-- <div id="div1"><h2>Let jQuery AJAX Change This Text</h2></div> -->
@@ -343,12 +352,20 @@ The code shoud not:
                                 </thead>
                                 <tbody>
                                     <?php foreach ($projectArrayAll as $key => $val) : ?>
-                                    <tr onclick="document.location = `<?= 'project.php?ID=' . $val['Project_ID']; ?>`;">
-                                        <th scope="row"><?= $val['Project_ID']; ?></th>
-                                        <td><?= $val['Project_Name']; ?></td>
-                                        <td><?= $val['Project_Description']; ?></td>
-                                        <td><?= $val['Address'] . ' ' . $val['City'] . ', ' . $val['State'] . ' ' . $val['ZipCode']; ?>
-                                        </td>
+                                    <tr>
+                                        <th scope="row"><a href="<?= 'project.php?ID=' . $val['Project_ID']; ?>"
+                                                style="text-decoration:none; color:inherit;"><?= $val['Project_ID']; ?></a>
+                                        </th>
+                                        <td><a href="<?= 'project.php?ID=' . $val['Project_ID']; ?>"
+                                                style="text-decoration:none; color:inherit;"
+                                                tabindex="-1"><?= $val['Project_Name']; ?></a></td>
+                                        <td><a href="<?= 'project.php?ID=' . $val['Project_ID']; ?>"
+                                                style="text-decoration:none; color:inherit;"
+                                                tabindex="-1"><?= $val['Project_Description']; ?></a></td>
+                                        <td><a href="<?= 'project.php?ID=' . $val['Project_ID']; ?>"
+                                                style="text-decoration:none; color:inherit;"
+                                                tabindex="-1"><?= $val['Address'] . ' ' . $val['City'] . ', ' . $val['State'] . ' ' . $val['ZipCode']; ?>
+                                            </a></td>
                                         <td>
                                             <button type="button" id="deleteProject" data-bs-target="#DeleteModal"
                                                 title="Delete Project" data-bs-toggle="modal"
@@ -360,6 +377,8 @@ The code shoud not:
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
+                            <div class="h6"><i class="fa-regular fa-comment"></i> Click a row to see project details.
+                            </div>
                         </div>
                         <!-- Contractor List Tab -->
                         <div class="tab-pane fade" id="v-pills-5" role="tabpanel" aria-labelledby="v-pills-5-tab"
