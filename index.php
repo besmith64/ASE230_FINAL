@@ -40,6 +40,18 @@ if ($logged == 1 && $_SESSION['GID'] == 1) {
             echo $ex->getMessage();
         }
     }
+    //Add New Contractor
+    if (isset($_POST['cSubmit'])) {
+        try {
+            $values = array(
+                $_POST['inputContractor'],
+                $_POST['inputNewContDesc']
+            );
+            $contractors->create_contractor($connection, $values);
+        } catch (Exception $ex) {
+            echo $ex->getMessage();
+        }
+    }
 }
 
 ?>
@@ -276,19 +288,19 @@ The code shoud not:
                         <!--Add Contractor Tab -->
                         <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab"
                             tabindex="0">
-                            <form class="row g-3">
+                            <form class="row g-3" method="POST">
                                 <div class="col-12">
                                     <label for="inputContractor" class="form-label">Contractor:</label>
-                                    <input type="text" class="form-control" id="inputContractor"
+                                    <input type="text" name="inputContractor" class="form-control" id="inputContractor"
                                         placeholder="Enter a new contractor name">
                                 </div>
                                 <div class="col-12">
                                     <label for="inputNewContDesc" class="form-label">Description:</label>
                                     <textarea class="form-control" placeholder="Enter a description..."
-                                        id="inputNewContDesc" style="height: 100px"></textarea>
+                                        id="inputNewContDesc" name="inputNewContDesc" style="height: 100px"></textarea>
                                 </div>
                                 <div class="col-12">
-                                    <button type="submit" class="btn btn-primary">Create</button>
+                                    <button type="submit" name="cSubmit" class="btn btn-primary">Create</button>
                                 </div>
                             </form>
                         </div>
