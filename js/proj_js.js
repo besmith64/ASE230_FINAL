@@ -24,14 +24,29 @@ editModal.addEventListener("show.bs.modal", function (e) {
   // Button that triggered the modal
   var opener = e.relatedTarget;
   // Extract info from data-bs-* attributes
-  var mid=$(opener).attr('data-bs-mid');
+  var project=$('.modal-body').find('[id="inputProj"]').val();
+  var pmid=$(opener).attr('data-bs-pmid');
   var material=$(opener).attr('data-bs-material');
   var projcost=$(opener).attr('data-bs-projcost');
   var qty=$(opener).attr('data-bs-qty');
   var paid=$(opener).attr('data-bs-paid');
   
+  $('.modal-body').find('[id="inputPMID"]').val(pmid);
   $('.modal-body').find('[id="inputMaterial"]').val(material);
   $('.modal-body').find('[id="inputMatCost"]').val(projcost);
   $('.modal-body').find('[id="inputMatQty"]').val(qty);
   $('.modal-body').find('[id="inputMatPaid"]').val(paid);
+
+  $('#editPM').submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: 'scripts/edit_pm.php',
+        data:'project='+project+'&pmid='+pmid+'&projcost='+$("#inputMatCost").val()+'&qty='+$("#inputMatQty").val()+'&paid='+$("#inputMatPaid").val(),
+        success: function(response)
+        {
+          location.href = 'project.php?ID=' + response;
+        }
+    });
+});
 });

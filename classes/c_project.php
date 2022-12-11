@@ -90,10 +90,10 @@ class Project
         return true;
     }
     //function for editing a material
-    public static function edit_proj_materials($connection, $Project_ID, $PMID, $Material_ID, $Quantity, $Project_Cost)
+    public static function edit_proj_materials($connection, $Project_ID, $PMID, $Project_Cost, $Quantity, $Paid_Amount)
     {
-        $query = $connection->prepare('UPDATE t_projectmaterials SET Material_ID = ?, Quantity = ?, Project_Cost = ?, modifieddate = current_timestamp() WHERE Project_ID = ? and PMID = ?');
-        $query->execute([$Material_ID, $Quantity, $Project_Cost, $Project_ID, $PMID]);
+        $query = $connection->prepare('UPDATE t_projectmaterials SET Project_Cost = ?, Quantity_Used = ?, Paid_Amount = ?, modifieddate = current_timestamp() WHERE Project_ID = ? and PMID = ?');
+        $query->execute([$Project_Cost, $Quantity, $Paid_Amount, $Project_ID, $PMID]);
         return true;
     }
     //function for creating a new material

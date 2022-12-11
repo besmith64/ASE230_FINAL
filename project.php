@@ -219,7 +219,7 @@ if (isset($_POST['submitProjMat'])) {
                                 </td>
                                 <td>
                                     <button type="button" id="editProject" data-bs-target="#EditModal"
-                                        title="Edit Project" data-bs-toggle="modal" data-bs-mid="<?= $val['PMID']; ?>"
+                                        title="Edit Project" data-bs-toggle="modal" data-bs-pmid="<?= $val['PMID']; ?>"
                                         data-bs-material="<?= Materials::get_materials_by_ID($connection, $val['Material_ID'])['Material_Name']; ?>"
                                         data-bs-projcost="<?= $val['Project_Cost']; ?>"
                                         data-bs-qty="<?= $val['Quantity_Used']; ?>"
@@ -303,7 +303,15 @@ if (isset($_POST['submitProjMat'])) {
                 </div>
                 <div class="modal-body">
                     <!-- Add Form -->
-                    <form class="row">
+                    <form class="row" method="POST" id="editPM">
+                        <div class="row">
+                            <div class="col-6" hidden>
+                                <input type="text" class="form-control" id="inputProj" value="<?= $_GET['ID'] ?>">
+                            </div>
+                            <div class="col-6" hidden>
+                                <input type="text" class="form-control" id="inputPMID">
+                            </div>
+                        </div>
                         <div class="col-12" style="padding-bottom: 10px;">
                             <label for="inputMaterial" class="form-label">Material Name:</label>
                             <input type="text" class="form-control" id="inputMaterial" placeholder="Test" disabled
@@ -324,7 +332,7 @@ if (isset($_POST['submitProjMat'])) {
                             </div>
                         </div>
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="submit" class="btn btn-primary" name="editMatSubmit">Save</button>
                         </div>
                     </form>
                 </div>
