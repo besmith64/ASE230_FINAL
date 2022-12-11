@@ -565,8 +565,8 @@ if ($logged == 1 && $_SESSION['GID'] == 1) {
                         <div class="col-md-6" style="padding-bottom: 10px;">
                             <label for="inputGroup" class="form-label">Group:</label>
                             <select id="inputGroup" class="form-select" name="group">
-                                <option selected="true">User</option>
-                                <option>Admin</option>
+                                <option selected="true" value="2">User</option>
+                                <option value="1">Admin</option>
                             </select>
                         </div>
                         <div class="col-12">
@@ -594,7 +594,7 @@ if ($logged == 1 && $_SESSION['GID'] == 1) {
                     <form class="row" method="POST" id="EditContractorForm">
                         <div class="col-12" style="padding-bottom: 10px;">
                             <label for="inputEdtContractor" class="form-label">Contractor Name:</label>
-                            <input type="email" class="form-control" id="inputEdtContractor" name="contractor">
+                            <input type="text" class="form-control" id="inputEdtContractor" name="contractor">
                         </div>
                         <div class="col-12" style="padding-bottom: 10px;">
                             <label for="inputEdtContractorDesc" class="form-label">Description:</label>
@@ -625,7 +625,7 @@ if ($logged == 1 && $_SESSION['GID'] == 1) {
                     <form class="row" method="POST" id="EditMatForm">
                         <div class="col-12" style="padding-bottom: 10px;">
                             <label for="inputEdtMat" class="form-label">Material Name:</label>
-                            <input type="email" class="form-control" id="inputEdtMat">
+                            <input type="text" class="form-control" id="inputEdtMat">
                         </div>
                         <div class="col-12">
                             <label for="inputEdtMatDesc" class="form-label">Description:</label>

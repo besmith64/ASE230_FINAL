@@ -48,5 +48,5 @@ editModal.addEventListener("show.bs.modal", function (e) {
           location.href = 'project.php?ID=' + response;
         }
     });
-});
+  });
 });
