@@ -71,7 +71,7 @@ class Project
     public static function get_proj_materials($connection, $Project_ID)
     {
         $ProjMaterials = [];
-        $query = $connection->prepare('SELECT * FROM t_projectmaterials WHERE is_deleted = 0 and Project_ID = ?');
+        $query = $connection->prepare('SELECT * FROM t_projectmaterials pm, t_materialslist m WHERE pm.Material_ID = m.Material_ID and pm.is_deleted = 0 and m.is_deleted = 0 and Project_ID =  ?');
         $query->execute([$Project_ID]);
         while ($data = $query->fetch()) {
             $ProjMaterials[] = $data;

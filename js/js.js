@@ -74,3 +74,49 @@ deleteMatModal.addEventListener("show.bs.modal", function (e) {
     })
   });
 }); 
+
+// AJAX new project
+// $(document).ready(function(){
+//   $("#createProj").click(function(){
+//     var project = $("#inputProject").val();
+//     var description = $("#projDesc").val();
+//     var contractor = $("#inputContractor").val();
+//     var address = $("#inputAddress").val();
+//     var city = $("#inputCity").val();
+//     var state = $("#inputState").val();
+//     var zip = $("#inputZip").val();
+
+//     // Returns successful data submission message when the entered information is stored in database.
+//     var dataString = 'project='+ project + '&description='+ description + '&contractor='+ contractor + 
+//                      '&address=' + address + '&city=' + city + '&state=' + state + '&zip=' + zip;
+//     if(project == '') {
+//       alert("Please Enter a Project Name");
+//     }
+//     else if (contractor == '') {
+//       alert("Please Enter a Contractor");
+//     } else {
+//       // AJAX Code To Submit Form.
+//       $.ajax({
+//         type: "POST",
+//         url: "scripts/create_project.php",
+//         data: dataString,
+//         cache: false,
+//         success: function(result){
+//           alert(result);
+//         }
+//       });
+//     }
+//     return false;
+//   });
+// });
+$('#createProjForm > button').click(function(e) {
+  e.preventDefault(); //prevent default behaviour
+  var formData = $('#createProjForm').serialize() //serialize data from form
+
+  // AJAX Code To Submit Form.
+  $.ajax({
+    type: "POST",
+    url: "scripts/create_project.php",
+    data: formData
+  });
+});

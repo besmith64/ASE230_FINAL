@@ -664,35 +664,44 @@ The code shoud not:
                 </div>
                 <div class="modal-body">
                     <!-- Add Form -->
-                    <form class="row g-3">
+                    <form class="row g-3" method="POST" id="createProjForm">
                         <div class="col-12">
                             <label for="inputProject" class="form-label">Project Name:</label>
-                            <input type="text" class="form-control" id="inputProject"
+                            <input type="text" class="form-control" name="inputProject"
                                 placeholder="Enter a new project name">
                         </div>
                         <div class="col-12">
-                            <textarea class="form-control" placeholder="Enter a description..." id="floatingTextarea"
+                            <textarea class="form-control" placeholder="Enter a description..." name="projDesc"
                                 style="height: 100px"></textarea>
                         </div>
                         <div class="col-12">
+                            <label for="inputContractor" class="form-label">Contractor</label>
+                            <select class="form-select" name="inputContractor">
+                                <option selected="true" disabled>Choose Contractor</option>
+                                <?php foreach ($contractorsArray as $key => $val) : ?>
+                                <option value="<?= $val['Contractor_ID']; ?>"><?= $val['Contractor_Name']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="col-12">
                             <label for="inputAddress" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                            <input type="text" class="form-control" name="inputAddress" placeholder="1234 Main St">
                         </div>
                         <div class="col-md-6">
                             <label for="inputCity" class="form-label">City</label>
-                            <input type="text" class="form-control" id="inputCity">
+                            <input type="text" class="form-control" name="inputCity">
                         </div>
                         <div class="col-md-4">
                             <label for="inputState" class="form-label">State</label>
-                            <select id="inputState" class="form-select" name="state">
+                            <select class="form-select" name="state">
                             </select>
                         </div>
                         <div class="col-md-2">
                             <label for="inputZip" class="form-label">Zip</label>
-                            <input type="text" class="form-control" id="inputZip">
+                            <input type="text" class="form-control" name="inputZip">
                         </div>
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary">Create</button>
+                            <button type="submit" class="btn btn-primary" name="createProjSubmit">Create</button>
                         </div>
                     </form>
                 </div>

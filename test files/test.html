@@ -1,30 +1,80 @@
-<!DOCTYPE html>
-<html>
-    
-  <head>
-        
-    <title>        JQuery        | Set value of input text.     </title>
-        
-    <script
-      src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"
-    >
-          
-    </script>
-      
-  </head>
-    
-  <body style="text-align: center">
-        
-    <h1 style="color: green">                GeeksForGeeks           </h1>
-    Input Box:     <input id="input" type="text" class="Disable" value="" />
-        <br />
-        <br />
-        <button id="setText">        setText     </button>     
-    <script>
-      $("#setText").click(function (event) {
-        $("body input").val("GeeksForGeeks");
-      });
-    </script>
-  </body>
-    
-</html>
+<div
+  class="modal fade"
+  id="CreateProjModal"
+  tabindex="-1"
+  aria-labelledby="createProjModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="createProjModalLabel">
+          Create Project
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <!-- Add Form -->
+        <form class="row g-3" method="POST">
+          <div class="col-12">
+            <label for="inputProject" class="form-label">Project Name:</label>
+            <input
+              type="text"
+              class="form-control"
+              name="inputProject"
+              placeholder="Enter a new project name"
+            />
+          </div>
+          <div class="col-12">
+            <textarea
+              class="form-control"
+              placeholder="Enter a description..."
+              name="projDesc"
+              style="height: 100px"
+            ></textarea>
+          </div>
+          <div class="col-md-4">
+            <label for="inputState" class="form-label">State</label>
+            <select id="inputState" class="form-select" name="state"></select>
+          </div>
+          <div class="col-12">
+            <label for="inputAddress" class="form-label">Address</label>
+            <input
+              type="text"
+              class="form-control"
+              name="inputAddress"
+              placeholder="1234 Main St"
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="inputCity" class="form-label">City</label>
+            <input type="text" class="form-control" name="inputCity" />
+          </div>
+          <div class="col-md-4">
+            <label for="inputState" class="form-label">State</label>
+            <select id="inputState" class="form-select" name="state"></select>
+          </div>
+          <div class="col-md-2">
+            <label for="inputZip" class="form-label">Zip</label>
+            <input type="text" class="form-control" name="inputZip" />
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary" name="createProj">
+              Create
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
