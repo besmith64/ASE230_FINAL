@@ -223,8 +223,9 @@ if (isset($_POST['submitProjMat'])) {
                                     </button>
                                 </td>
                                 <td>
-                                    <button type="button" id="deleteProject" data-bs-target="#DeleteModal"
-                                        title="Delete Project" data-bs-toggle="modal" class="btn btn-danger btn-small">
+                                    <button type="button" data-bs-target="#DeletePMIDModal" title="Delete Project"
+                                        data-bs-toggle="modal" data-bs-whatever="<?= $_GET['ID']; ?>"
+                                        data-bs-whatever-2="<?= $val['PMID']; ?>" class="btn btn-danger btn-small">
                                         <i class="fa-solid fa-trash "></i>
                                     </button>
                                 </td>
@@ -269,20 +270,20 @@ if (isset($_POST['submitProjMat'])) {
         </div>
     </div>
     <!-- Delete Modal -->
-    <div class="modal fade" id="DeleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal fade" id="DeletePMIDModal" tabindex="-1" aria-labelledby="deletePMIDModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="deleteModalLabel">Delete Project</h1>
+                    <h1 class="modal-title fs-5" id="deletePMIDModalLabel">Delete Project material</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Are you sure?</br>Once this is done the project cannot be restored.
+                    Are you sure?</br>Once this is done the material cannot be restored.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger">Submit</button>
-                    <!-- <button type="button" class="btn btn-danger" onclick="foo()">Submit</button> -->
+                    <button type="button" class="btn btn-danger" name="deletePMIDModalSubmit">Submit</button>
                 </div>
             </div>
         </div>
@@ -331,7 +332,7 @@ if (isset($_POST['submitProjMat'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
     </script>
-    <script src="js/js.js"></script>
+    <script src="js/proj_js.js"></script>
 </body>
 
 </html>

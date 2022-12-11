@@ -284,8 +284,8 @@ The code shoud not:
                                             </button>
                                         </td>
                                         <td>
-                                            <button type="button" id="deleteUser" data-bs-target="#DeleteUserModal"
-                                                title="Delete User" data-bs-toggle="modal"
+                                            <button type="button" data-bs-target="#DeleteUserModal" title="Delete User"
+                                                data-bs-toggle="modal" data-bs-whatever="<?= $val['UID']; ?>"
                                                 class="btn btn-danger btn-small">
                                                 <i class="fa-solid fa-trash "></i>
                                             </button>
@@ -368,8 +368,8 @@ The code shoud not:
                                                 tabindex="-1"><?= $val['Address'] . ' ' . $val['City'] . ', ' . $val['State'] . ' ' . $val['ZipCode']; ?>
                                             </a></td>
                                         <td>
-                                            <button type="button" id="deleteProject" data-bs-target="#DeleteModal"
-                                                title="Delete Project" data-bs-toggle="modal"
+                                            <button type="button" data-bs-target="#DeleteModal" title="Delete Project"
+                                                data-bs-toggle="modal" data-bs-whatever="<?= $val['Project_ID']; ?>"
                                                 class="btn btn-danger btn-small">
                                                 <i class="fa-solid fa-trash "></i>
                                             </button>
@@ -401,16 +401,17 @@ The code shoud not:
                                         <td><?= $val['Contractor_Name']; ?></td>
                                         <td><?= $val['Contractor_Description']; ?></td>
                                         <td>
-                                            <button type="button" id="editContractor"
-                                                data-bs-target="#EditContractorModal" title="Edit Contractor"
-                                                data-bs-toggle="modal" class="btn btn-warning btn-small">
+                                            <button type="button" data-bs-target="#EditContractorModal"
+                                                title="Edit Contractor" data-bs-toggle="modal"
+                                                class="btn btn-warning btn-small">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
                                         </td>
                                         <td>
-                                            <button type="button" id="deleteContractor"
-                                                data-bs-target="#DeleteContractorModal" title="Delete Contractor"
-                                                data-bs-toggle="modal" class="btn btn-danger btn-small">
+                                            <button type="button" data-bs-target="#DeleteContractorModal"
+                                                title="Delete Contractor" data-bs-toggle="modal"
+                                                data-bs-whatever="<?= $val['Contractor_ID']; ?>"
+                                                class="btn btn-danger btn-small">
                                                 <i class="fa-solid fa-trash "></i>
                                             </button>
                                         </td>
@@ -441,15 +442,15 @@ The code shoud not:
                                         <td><?= $val['Material_Description']; ?></td>
                                         <td><?= $val['Material_Cost']; ?></td>
                                         <td>
-                                            <button type="button" id="editMat" data-bs-target="#EditMatModal"
-                                                title="Edit Material" data-bs-toggle="modal"
-                                                class="btn btn-warning btn-small">
+                                            <button type="button" data-bs-target="#EditMatModal" title="Edit Material"
+                                                data-bs-toggle="modal" class="btn btn-warning btn-small">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
                                         </td>
                                         <td>
-                                            <button type="button" id="deleteMat" data-bs-target="#DeleteMatModal"
+                                            <button type="button" data-bs-target="#DeleteMatModal"
                                                 title="Delete Material" data-bs-toggle="modal"
+                                                data-bs-whatever="<?= $val['Material_ID']; ?>"
                                                 class="btn btn-danger btn-small">
                                                 <i class="fa-solid fa-trash "></i>
                                             </button>
@@ -474,7 +475,7 @@ The code shoud not:
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Are you sure?</br>Once this is done the user cannot be restored.
+                    Are you sure?</br>Once this is done the project cannot be restored.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -497,8 +498,7 @@ The code shoud not:
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger">Submit</button>
-                    <!-- <button type="button" class="btn btn-danger" onclick="foo()">Submit</button> -->
+                    <button type="button" class="btn btn-danger" name="deleteUserModalSubmit">Submit</button>
                 </div>
             </div>
         </div>
@@ -517,7 +517,7 @@ The code shoud not:
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger">Submit</button>
+                    <button type="button" class="btn btn-danger" name="deleteContractorModalSubmit">Submit</button>
                     <!-- <button type="button" class="btn btn-danger" onclick="foo()">Submit</button> -->
                 </div>
             </div>
@@ -536,7 +536,7 @@ The code shoud not:
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger">Submit</button>
+                    <button type="button" class="btn btn-danger" name="deleteMatModalSubmit">Submit</button>
                     <!-- <button type="button" class="btn btn-danger" onclick="foo()">Submit</button> -->
                 </div>
             </div>
