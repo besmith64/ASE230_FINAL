@@ -2,6 +2,8 @@
 // Load all of the php scripts
 require_once('settings/settings.php');
 require_once('classes/c_project.php');
+require_once('classes/c_contractors.php');
+require_once('classes/c_materials.php');
 require_once('classes/c_user.php');
 
 if (!count($_SESSION) > 0 && !is_numeric($_SESSION['ID'])) {
@@ -10,14 +12,36 @@ if (!count($_SESSION) > 0 && !is_numeric($_SESSION['ID'])) {
 }
 
 $logged = 0;
-// print_r($_COOKIE['user']);
+
 if (count($_SESSION) > 0 && is_numeric($_SESSION['ID'])) {
     $logged = 1;
-    $project = new Project();
-    $projectArray = $project->get_project($connection, $_GET['ID']);
 
+    // Load Classes
+    $project = new Project();
+    $contractors = new Contractor();
+    $materials = new Materials();
     $user = new User();
+
+    // Get Data
+    $projectArray = $project->get_project($connection, $_GET['ID']);
+    $projectMaterialsArray = $project->get_proj_materials($connection, $_GET['ID']);
     $get_user = $user->get_users_by_id($connection, $projectArray['Created_By']);
+    $get_contractor = $contractors->get_contractor_by_id($connection, $projectArray['Contractor_ID']);
+    $materialsArray = $materials->get_materials($connection);
+}
+// Add project material
+if (isset($_POST['submitProjMat'])) {
+    try {
+        $values = array(
+            $_GET['ID'],
+            $_POST['matSelect'],
+            $_POST['inputProjectQty'],
+            $_POST['inputProjectCost']
+        );
+        $project->create_proj_material($connection, $values);
+    } catch (Exception $ex) {
+        echo $ex->getMessage();
+    }
 }
 
 ?>
@@ -137,9 +161,18 @@ if (count($_SESSION) > 0 && is_numeric($_SESSION['ID'])) {
                             <p class="text-left"><?= $get_user['firstname'] . ' ' . $get_user['lastname'] ?></p>
                         </div>
                     </div>
+                    <!-- Contractor Information -->
                     <div class="row">
                         <div class="col-4">
-                            <p class="text-left"><strong>Address:</strong></p>
+                            <p class="text-left"><strong>Contractor:</strong></p>
+                        </div>
+                        <div class="col-8">
+                            <p class="text-left"><?= $get_contractor['Contractor_Name'] ?></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <p class="text-left"><strong>Project Location:</strong></p>
                         </div>
                         <div class="col-8">
                             <address class="text-left">
@@ -151,6 +184,7 @@ if (count($_SESSION) > 0 && is_numeric($_SESSION['ID'])) {
                         </div>
                     </div>
                 </div>
+                <!-- Project Financials -->
                 <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab" tabindex="0">
                     <table class="table table-hover table-responsive">
                         <thead class="table-dark">
@@ -158,21 +192,30 @@ if (count($_SESSION) > 0 && is_numeric($_SESSION['ID'])) {
                                 <th scope="col">#</th>
                                 <th scope="col">Material Name</th>
                                 <th scope="col">Description</th>
-                                <th scope="col">Cost</th>
+                                <th scope="col">Material Cost</th>
                                 <th scope="col">Quantity</th>
+                                <th scope="col">Project Cost</th>
+                                <th scope="col">Quantity Used</th>
                                 <th scope="col">Paid Amount</th>
                                 <th scope="col">Edit</th>
                                 <th scope="col">Delete</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <?php foreach ($projectMaterialsArray as $key => $val) : ?>
                             <tr>
-                                <th scope="row">1</th>
-                                <td>Pipe 1</td>
-                                <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veniam, cupiditate.</td>
-                                <td>$1500.00</td>
-                                <td>12</td>
-                                <td>$15000.00</td>
+                                <th scope="row"><?= $val['PMID'] ?></th>
+                                <td><?= Materials::get_materials_by_ID($connection, $val['Material_ID'])['Material_Name'] ?>
+                                </td>
+                                <td><?= Materials::get_materials_by_ID($connection, $val['Material_ID'])['Material_Description'] ?>
+                                </td>
+                                <td><?= '$' . Materials::get_materials_by_ID($connection, $val['Material_ID'])['Material_Cost'] ?>
+                                </td>
+                                <td><?= $val['Quantity'] ?></td>
+                                <td><?= '$' . $val['Project_Cost'] ?></td>
+                                <td><?= $val['Quantity_Used'] ?></td>
+                                <td><?= '$' . $val['Paid_Amount'] ?>
+                                </td>
                                 <td>
                                     <button type="button" id="editProject" data-bs-target="#EditModal"
                                         title="Edit Project" data-bs-toggle="modal" class="btn btn-warning btn-small">
@@ -186,59 +229,21 @@ if (count($_SESSION) > 0 && is_numeric($_SESSION['ID'])) {
                                     </button>
                                 </td>
                             </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Pipe 2</td>
-                                <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veniam, cupiditate.</td>
-                                <td>$2000.00</td>
-                                <td>3</td>
-                                <td>$6000.00</td>
-                                <td>
-                                    <button type="button" id="editProject" data-bs-target="#EditModal"
-                                        title="Edit Project" data-bs-toggle="modal" class="btn btn-warning btn-small">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </button>
-                                </td>
-                                <td>
-                                    <button type="button" id="deleteProject" data-bs-target="#DeleteModal"
-                                        title="Delete Project" data-bs-toggle="modal" class="btn btn-danger btn-small">
-                                        <i class="fa-solid fa-trash "></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Pipe 3</td>
-                                <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veniam, cupiditate.</td>
-                                <td>$100.00</td>
-                                <td>15</td>
-                                <td>$1500.00</td>
-                                <td>
-                                    <button type="button" id="editProject" data-bs-target="#EditModal"
-                                        title="Edit Project" data-bs-toggle="modal" class="btn btn-warning btn-small">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </button>
-                                </td>
-                                <td>
-                                    <button type="button" id="deleteProject" data-bs-target="#DeleteModal"
-                                        title="Delete Project" data-bs-toggle="modal" class="btn btn-danger btn-small">
-                                        <i class="fa-solid fa-trash "></i>
-                                    </button>
-                                </td>
-                            </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
+                <!-- Add Project Materials Form -->
                 <div class="tab-pane fade " id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-3-tab" tabindex="0">
                     <h4>Add Project Materials</h4>
-                    <form class="row">
+                    <form class="row" method="POST">
                         <div class="col-md text-center">
                             <div class="form-floating" style="padding-bottom: 10px;">
-                                <select class="form-select" id="matSelect">
+                                <select class="form-select" id="matSelect" name="matSelect">
                                     <option selected="true" disabled>Choose Material...</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <?php foreach ($materialsArray as $key => $val) : ?>
+                                    <option value="<?= $val['Material_ID'] ?>"><?= $val['Material_Name'] ?></option>
+                                    <?php endforeach; ?>
                                 </select>
                                 <label for="matSelect">Material:</label>
                             </div>
@@ -246,17 +251,17 @@ if (count($_SESSION) > 0 && is_numeric($_SESSION['ID'])) {
                         <div class="row">
                             <div class="col-4">
                                 <label for="inputQty" class="form-label">Quantity:</label>
-                                <input id="inputQty" type="text" class="form-control" placeholder="0.00"
-                                    aria-label="Quantity" style="width: 250px;">
+                                <input id="inputProjectQty" name="inputProjectQty" type="text" class="form-control"
+                                    placeholder="0.00" aria-label="Quantity" style="width: 250px;">
                             </div>
                             <div class="col-4">
                                 <label for="inputProjectCost" class="form-label">Project Cost:</label>
-                                <input id="inputProjectCost" type="text" class="form-control" placeholder="0.00"
-                                    aria-label="projCost" style="width: 250px;">
+                                <input id="inputProjectCost" name="inputProjectCost" type="text" class="form-control"
+                                    placeholder="0.00" aria-label="projCost" style="width: 250px;">
                             </div>
                         </div>
                         <div class="col-12" style="padding-top: 10px;">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button name="submitProjMat" type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
                 </div>

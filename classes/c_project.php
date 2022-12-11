@@ -65,40 +65,6 @@ class Project
         $query = $connection->prepare('INSERT INTO t_project (Project_Name,Project_Description,Created_By,Contractor_ID,Address,City,State,ZipCode) VALUES (?,?,?,?,?,?,?,?)');
         $query->execute([$Project_Name, $Description, $Created_By, $Contractor_ID, $Address, $City, $State, $ZipCode]);
     }
-
-    // PROJECT FINANCIALS SECTION
-
-    // Get All Projects financials
-    public static function get_proj_financials($connection, $PMID)
-    {
-        $ProjectFinance = [];
-        $query = $connection->prepare('SELECT * FROM t_projectfinancials WHERE is_deleted = 0 and PMID = ?');
-        $query->execute([$PMID]);
-        while ($data = $query->fetch()) {
-            $ProjectFinance[] = $data;
-        }
-        return $ProjectFinance;
-    }
-    // function for deleting a specified Project financials
-    public static function delete_proj_financials($connection, $PMID, $PFID)
-    {
-        $query = $connection->prepare('UPDATE t_projectfinancials SET is_deleted = 1, modifieddate = current_timestamp() WHERE PMID = ? AND PFID = ?');
-        $query->execute([$PMID, $PFID]);
-        return true;
-    }
-    //function for editing a Project financials
-    public static function edit_proj_financials($connection, $PMID, $PFID, $Quantity_Used, $Paid_Amount)
-    {
-        $query = $connection->prepare('UPDATE t_projectfinancials SET Quantity_Used = ?, Paid_Amount = ?, modifieddate = current_timestamp() WHERE PMID = ? AND PFID = ?');
-        $query->execute([$Quantity_Used, $Paid_Amount, $PMID, $PFID]);
-        return true;
-    }
-    //function for creating a new Project financials
-    public static function create_proj_financials($connection, $PMID)
-    {
-        $query = $connection->prepare('INSERT INTO t_projectfinancials (PMID) VALUES (?)');
-        $query->execute([$PMID]);
-    }
     // PROJECT MATERIALS SECTION
 
     // Get All Project Materials
@@ -129,8 +95,6 @@ class Project
     //function for creating a new material
     public static function create_proj_material($connection, $array)
     {
-        $proj = new Project();
-        $conn = $connection;
         $Project_ID = $array[0];
         $Material_ID = $array[1];
         $Quantity = $array[2];
@@ -138,6 +102,5 @@ class Project
 
         $query = $connection->prepare('INSERT INTO t_projectmaterials (Project_ID,Material_ID,Quantity,Project_Cost) VALUES (?,?,?,?)');
         $query->execute([$Project_ID, $Material_ID, $Quantity, $Project_Cost]);
-        $proj->create_proj_financials($conn, $Material_ID); // Create a Proj Financials field when material is added.
     }
 }

@@ -15,6 +15,14 @@ class Contractor
         }
         return $Contractor;
     }
+    // Get Contractor by ID
+    public static function get_contractor_by_id($connection, $Contractor_ID)
+    {
+        $query = $connection->prepare('SELECT * FROM t_contractorslist WHERE is_deleted = 0 and Contractor_ID  = ?');
+        $query->execute([$Contractor_ID]);
+        $data = $query->fetch();
+        return $data;
+    }
     // function for deleting a specified Contractor
     public static function delete_contractor($connection, $Contractor_ID)
     {

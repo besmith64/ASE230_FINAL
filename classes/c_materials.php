@@ -15,6 +15,14 @@ class Materials
         }
         return $Materials;
     }
+    //Get Material by ID
+    public static function get_materials_by_ID($connection, $ID)
+    {
+        $query = $connection->prepare('SELECT * FROM t_materialslist WHERE is_deleted = 0 and Material_ID = ?');
+        $query->execute([$ID]);
+        $data = $query->fetch();
+        return $data;
+    }
     // function for deleting a specified material
     public static function delete_material($connection, $Material_ID)
     {
