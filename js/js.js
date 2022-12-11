@@ -1,84 +1,25 @@
-let dropdown = $('#inputState');
+var deleteModal = document.getElementById("DeleteModal");
 
-dropdown.empty();
 
-dropdown.append('<option selected="true" disabled>Choose State</option>');
-dropdown.prop('selectedIndex', 0);
+deleteModal.addEventListener("show.bs.modal", function (e) {
+  // Button that triggered the modal
+  var opener = e.relatedTarget;
+  // Extract info from data-bs-* attributes
+  var projectid=$(opener).attr('data-bs-whatever');
 
-const states = {
-    "AL": "Alabama",
-    "AK": "Alaska",
-    "AS": "American Samoa",
-    "AZ": "Arizona",
-    "AR": "Arkansas",
-    "CA": "California",
-    "CO": "Colorado",
-    "CT": "Connecticut",
-    "DE": "Delaware",
-    "DC": "District Of Columbia",
-    "FM": "Federated States Of Micronesia",
-    "FL": "Florida",
-    "GA": "Georgia",
-    "GU": "Guam",
-    "HI": "Hawaii",
-    "ID": "Idaho",
-    "IL": "Illinois",
-    "IN": "Indiana",
-    "IA": "Iowa",
-    "KS": "Kansas",
-    "KY": "Kentucky",
-    "LA": "Louisiana",
-    "ME": "Maine",
-    "MH": "Marshall Islands",
-    "MD": "Maryland",
-    "MA": "Massachusetts",
-    "MI": "Michigan",
-    "MN": "Minnesota",
-    "MS": "Mississippi",
-    "MO": "Missouri",
-    "MT": "Montana",
-    "NE": "Nebraska",
-    "NV": "Nevada",
-    "NH": "New Hampshire",
-    "NJ": "New Jersey",
-    "NM": "New Mexico",
-    "NY": "New York",
-    "NC": "North Carolina",
-    "ND": "North Dakota",
-    "MP": "Northern Mariana Islands",
-    "OH": "Ohio",
-    "OK": "Oklahoma",
-    "OR": "Oregon",
-    "PW": "Palau",
-    "PA": "Pennsylvania",
-    "PR": "Puerto Rico",
-    "RI": "Rhode Island",
-    "SC": "South Carolina",
-    "SD": "South Dakota",
-    "TN": "Tennessee",
-    "TX": "Texas",
-    "UT": "Utah",
-    "VT": "Vermont",
-    "VI": "Virgin Islands",
-    "VA": "Virginia",
-    "WA": "Washington",
-    "WV": "West Virginia",
-    "WI": "Wisconsin",
-    "WY": "Wyoming"
-};
+  //set what we got to our form
+  $('.modal-footer').find('[name="deleteModalSubmit"]').click(function(){
+    $.ajax({
+      url: 'scripts/delete.php?ID=' + projectid,
+      type: "GET",
+      success: function (response) {
 
-for (let i in states) {
-    x = states[i];
-    dropdown.append($('<option></option>').attr('value', i).text(x));
-}
-
-// for modal data pass example
-$("#submit").click(function () {
-    var name = $("#search").val();
-    var update = 'https://www.google.com/search?q=' + name
-
-    $('#modalSearchGoogle').val(name);
-    $('#modalSubmit').click(function() {
-      window.location = update
+        // project successfully deleted
+        // let's redirect
+        if (response == "1"){
+          location.href = 'index.php';
+        }
+      }
     });
   });
+}); 

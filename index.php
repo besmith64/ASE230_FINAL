@@ -87,7 +87,7 @@ The code shoud not:
     <link rel="stylesheet" href="css/login.css" media="screen" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/057979aec3.js" crossorigin="anonymous"></script>
     <script class="u-script" type="text/javascript" src="js/jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="js/nicepage.js" defer=""></script>
@@ -216,8 +216,9 @@ The code shoud not:
                                     tabindex="-1"><?= $val['Address'] . ' ' . $val['City'] . ', ' . $val['State'] . ' ' . $val['ZipCode']; ?>
                                 </a></td>
                             <td>
-                                <button type="button" id="deleteProject" data-bs-target="#DeleteModal"
-                                    title="Delete Project" data-bs-toggle="modal" class="btn btn-danger btn-small">
+                                <button type="button" data-bs-target="#DeleteModal" title="Delete Project"
+                                    data-bs-toggle="modal" data-bs-whatever="<?= $val['Project_ID']; ?>"
+                                    class="btn btn-danger btn-small">
                                     <i class="fa-solid fa-trash "></i>
                                 </button>
                             </td>
@@ -473,12 +474,11 @@ The code shoud not:
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Are you sure?</br>Once this is done the project cannot be restored.
+                    Are you sure?</br>Once this is done the user cannot be restored.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger">Submit</button>
-                    <!-- <button type="button" class="btn btn-danger" onclick="foo()">Submit</button> -->
+                    <button type="button" class="btn btn-danger" name="deleteModalSubmit">Submit</button>
                 </div>
             </div>
         </div>
@@ -705,7 +705,8 @@ The code shoud not:
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
     </script>
-    <script src="js/js.js"></script>
+    <script type="text/javascript" src="js/js.js"></script>
+    <script src="js/states.js"></script>
 </body>
 
 </html>
