@@ -14,17 +14,17 @@ if (count($_SESSION) > 0 && is_numeric($_SESSION['ID'])) {
 }
 
 $project = new Project();
+$contractors = new Contractor();
+$materials = new Materials();
 $projectArray = $project->get_project_by_user($connection, $_SESSION['ID']);
+$contractorsArray = $contractors->get_contractor($connection);
+$materialsArray = $materials->get_materials($connection);
 
 // Load Admin Data
 if ($logged == 1 && $_SESSION['GID'] == 1) {
     $user = new User();
-    $contractors = new Contractor();
-    $materials = new Materials();
 
     $userArray = $user->get_users($connection);
-    $contractorsArray = $contractors->get_contractor($connection);
-    $materialsArray = $materials->get_materials($connection);
     $projectArrayAll = $project->get_projects_all($connection);
 
     //Add New Material
