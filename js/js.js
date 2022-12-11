@@ -1,7 +1,55 @@
+// Delete Modals
 var deleteModal = document.getElementById("DeleteModal");
 var deleteUserModal = document.getElementById("DeleteUserModal");
 var deleteContractorModal = document.getElementById("DeleteContractorModal");
 var deleteMatModal = document.getElementById("DeleteMatModal");
+// Edit Modals
+var editUserModal = document.getElementById("EditUserModal");
+var editContractorModal = document.getElementById("EditContractorModal");
+var editMatModal = document.getElementById("EditMatModal");
+
+// Pass ID to modals
+editUserModal.addEventListener("show.bs.modal", function (e) {
+  // Button that triggered the modal
+  var opener = e.relatedTarget;
+  // Extract info from data-bs-* attributes
+  var uid=$(opener).attr('data-bs-id');
+  var email=$(opener).attr('data-bs-email');
+  var fname=$(opener).attr('data-bs-fname');
+  var lname=$(opener).attr('data-bs-lname');
+  var gid=$(opener).attr('data-bs-gid');
+  
+  $('.modal-body').find('[id="inputEmail"]').val(email);
+  $('.modal-body').find('[id="inputFName"]').val(fname);
+  $('.modal-body').find('[id="inputLName"]').val(lname);
+  $('.modal-body').find('[id="inputGroup"]').val(gid);
+});
+
+editContractorModal.addEventListener("show.bs.modal", function (e) {
+  // Button that triggered the modal
+  var opener = e.relatedTarget;
+  // Extract info from data-bs-* attributes
+  var id=$(opener).attr('data-bs-cid');
+  var contractor=$(opener).attr('data-bs-contractor');
+  var description=$(opener).attr('data-bs-description');
+  
+  $('.modal-body').find('[name="contractor"]').val(contractor);
+  $('.modal-body').find('[name="contractorDesc"]').val(description);
+});
+
+editMatModal.addEventListener("show.bs.modal", function (e) {
+  // Button that triggered the modal
+  var opener = e.relatedTarget;
+  // Extract info from data-bs-* attributes
+  var mid=$(opener).attr('data-bs-mid');
+  var material=$(opener).attr('data-bs-material');
+  var description=$(opener).attr('data-bs-description');
+  var cost=$(opener).attr('data-bs-cost');
+  
+  $('.modal-body').find('[id="inputEdtMat"]').val(material);
+  $('.modal-body').find('[id="inputEdtMatDesc"]').val(description);
+  $('.modal-body').find('[id="inputEdtMatCost"]').val(cost);
+});
 
 deleteModal.addEventListener("show.bs.modal", function (e) {
   // Button that triggered the modal
@@ -76,47 +124,17 @@ deleteMatModal.addEventListener("show.bs.modal", function (e) {
 }); 
 
 // AJAX new project
-// $(document).ready(function(){
-//   $("#createProj").click(function(){
-//     var project = $("#inputProject").val();
-//     var description = $("#projDesc").val();
-//     var contractor = $("#inputContractor").val();
-//     var address = $("#inputAddress").val();
-//     var city = $("#inputCity").val();
-//     var state = $("#inputState").val();
-//     var zip = $("#inputZip").val();
-
-//     // Returns successful data submission message when the entered information is stored in database.
-//     var dataString = 'project='+ project + '&description='+ description + '&contractor='+ contractor + 
-//                      '&address=' + address + '&city=' + city + '&state=' + state + '&zip=' + zip;
-//     if(project == '') {
-//       alert("Please Enter a Project Name");
-//     }
-//     else if (contractor == '') {
-//       alert("Please Enter a Contractor");
-//     } else {
-//       // AJAX Code To Submit Form.
-//       $.ajax({
-//         type: "POST",
-//         url: "scripts/create_project.php",
-//         data: dataString,
-//         cache: false,
-//         success: function(result){
-//           alert(result);
-//         }
-//       });
-//     }
-//     return false;
-//   });
-// });
-$('#createProjForm > button').click(function(e) {
-  e.preventDefault(); //prevent default behaviour
-  var formData = $('#createProjForm').serialize() //serialize data from form
-
-  // AJAX Code To Submit Form.
-  $.ajax({
-    type: "POST",
-    url: "scripts/create_project.php",
-    data: formData
+$(document).ready(function() {
+  $('#createProjectForm').submit(function(e) {
+      e.preventDefault();
+      $.ajax({
+          type: "POST",
+          url: 'scripts/create_project.php',
+          data: $(this).serialize(),
+          success: function(response)
+          {
+            location.href = 'project.php?ID=' + response;
+          }
+      });
   });
 });

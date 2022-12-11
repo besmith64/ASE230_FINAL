@@ -1,4 +1,5 @@
 var deletePMIDModal = document.getElementById("DeletePMIDModal");
+var editModal = document.getElementById("EditModal");
 
 deletePMIDModal.addEventListener("show.bs.modal", function (e) {
   // Button that triggered the modal
@@ -17,4 +18,20 @@ deletePMIDModal.addEventListener("show.bs.modal", function (e) {
       }
     })
   });
-}); 
+});
+
+editModal.addEventListener("show.bs.modal", function (e) {
+  // Button that triggered the modal
+  var opener = e.relatedTarget;
+  // Extract info from data-bs-* attributes
+  var mid=$(opener).attr('data-bs-mid');
+  var material=$(opener).attr('data-bs-material');
+  var projcost=$(opener).attr('data-bs-projcost');
+  var qty=$(opener).attr('data-bs-qty');
+  var paid=$(opener).attr('data-bs-paid');
+  
+  $('.modal-body').find('[id="inputMaterial"]').val(material);
+  $('.modal-body').find('[id="inputMatCost"]').val(projcost);
+  $('.modal-body').find('[id="inputMatQty"]').val(qty);
+  $('.modal-body').find('[id="inputMatPaid"]').val(paid);
+});

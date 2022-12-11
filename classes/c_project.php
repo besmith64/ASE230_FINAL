@@ -62,8 +62,12 @@ class Project
         $State = $array[6];
         $ZipCode = $array[7];
 
-        $query = $connection->prepare('INSERT INTO t_project (Project_Name,Project_Description,Created_By,Contractor_ID,Address,City,State,ZipCode) VALUES (?,?,?,?,?,?,?,?)');
+        $query = $connection->prepare('INSERT INTO t_project (Project_Name,Project_Description,Created_By,Contractor_ID,Address,City,State,ZipCode) VALUES (?,?,?,?,?,?,?,?);');
         $query->execute([$Project_Name, $Description, $Created_By, $Contractor_ID, $Address, $City, $State, $ZipCode]);
+        $query = $connection->prepare('SELECT Project_ID FROM t_project ORDER BY createdate DESC LIMIT 1');
+        $query->execute();
+        $data = $query->fetch();
+        return $data;
     }
     // PROJECT MATERIALS SECTION
 

@@ -36,6 +36,7 @@ if ($logged == 1 && $_SESSION['GID'] == 1) {
                 $_POST['inputNewMatCost']
             );
             $materials->create_material($connection, $values);
+            $materialsArray = $materials->get_materials($connection); // Get new list
         } catch (Exception $ex) {
             echo $ex->getMessage();
         }
@@ -48,6 +49,7 @@ if ($logged == 1 && $_SESSION['GID'] == 1) {
                 $_POST['inputNewContDesc']
             );
             $contractors->create_contractor($connection, $values);
+            $contractorsArray = $contractors->get_contractor($connection); // Get new list
         } catch (Exception $ex) {
             echo $ex->getMessage();
         }
@@ -65,18 +67,7 @@ if ($logged == 1 && $_SESSION['GID'] == 1) {
     The SQL export of the database, including relevant data for navigating the website (i.e., dummy data), if needed.
     The project code.
     Instructions for setting up the database and running the code.
-
-Your code should:
-
-    -work as expected: please, make sure that there are no errors due to incorrect settings or missing files and folders (10 points)
-     be published on GitHub (10 points)
-    -make use of AJAX (2 points)
-
-The code shoud not:
-
-    crash or contain errors or code smell https://en.wikipedia.org/wiki/Code_smell (Links to an external site.) (e.g., print_r statements...) (-5 points)
-    be prone to SQL injections (-5 points);
-    be entirely copied from somewhere else (-39 points)  -->
+  -->
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -279,6 +270,10 @@ The code shoud not:
                                         <td>
                                             <button type="button" id="editUser" data-bs-target="#EditUserModal"
                                                 title="Edit User" data-bs-toggle="modal"
+                                                data-bs-id="<?= $val['UID']; ?>" data-bs-email="<?= $val['email']; ?>"
+                                                data-bs-fname="<?= $val['firstname']; ?>"
+                                                data-bs-lname="<?= $val['lastname']; ?>"
+                                                data-bs-gid="<?= ($val['GID'] == 1) ? 'Admin' : 'User'; ?>"
                                                 class="btn btn-warning btn-small">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
@@ -403,6 +398,9 @@ The code shoud not:
                                         <td>
                                             <button type="button" data-bs-target="#EditContractorModal"
                                                 title="Edit Contractor" data-bs-toggle="modal"
+                                                data-bs-cid="<?= $val['Contractor_ID']; ?>"
+                                                data-bs-contractor="<?= $val['Contractor_Name']; ?>"
+                                                data-bs-description="<?= $val['Contractor_Description']; ?>"
                                                 class="btn btn-warning btn-small">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
@@ -443,7 +441,11 @@ The code shoud not:
                                         <td><?= $val['Material_Cost']; ?></td>
                                         <td>
                                             <button type="button" data-bs-target="#EditMatModal" title="Edit Material"
-                                                data-bs-toggle="modal" class="btn btn-warning btn-small">
+                                                data-bs-toggle="modal" data-bs-mid="<?= $val['Material_ID']; ?>"
+                                                data-bs-material="<?= $val['Material_Name']; ?>"
+                                                data-bs-description="<?= $val['Material_Description']; ?>"
+                                                data-bs-cost="<?= $val['Material_Cost']; ?>"
+                                                class="btn btn-warning btn-small">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
                                         </td>
@@ -600,12 +602,12 @@ The code shoud not:
                     <form class="row">
                         <div class="col-12" style="padding-bottom: 10px;">
                             <label for="inputEdtContractor" class="form-label">Contractor Name:</label>
-                            <input type="email" class="form-control" id="inputEdtContractor">
+                            <input type="email" class="form-control" id="inputEdtContractor" name="contractor">
                         </div>
                         <div class="col-12" style="padding-bottom: 10px;">
                             <label for="inputEdtContractorDesc" class="form-label">Description:</label>
                             <textarea class="form-control" placeholder="Enter a description..."
-                                id="inputEdtContractorDesc" style="height: 100px"></textarea>
+                                id="inputEdtContractorDesc" style="height: 100px" name="contractorDesc"></textarea>
                         </div>
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary">Save</button>
@@ -664,19 +666,19 @@ The code shoud not:
                 </div>
                 <div class="modal-body">
                     <!-- Add Form -->
-                    <form class="row g-3" method="POST" id="createProjForm">
+                    <form class="row g-3" method="POST" id="createProjectForm">
                         <div class="col-12">
-                            <label for="inputProject" class="form-label">Project Name:</label>
-                            <input type="text" class="form-control" name="inputProject"
+                            <label class="form-label">Project Name:</label>
+                            <input type="text" class="form-control" name="project"
                                 placeholder="Enter a new project name">
                         </div>
                         <div class="col-12">
-                            <textarea class="form-control" placeholder="Enter a description..." name="projDesc"
+                            <textarea class="form-control" placeholder="Enter a description..." name="description"
                                 style="height: 100px"></textarea>
                         </div>
                         <div class="col-12">
-                            <label for="inputContractor" class="form-label">Contractor</label>
-                            <select class="form-select" name="inputContractor">
+                            <label class="form-label">Contractor</label>
+                            <select class="form-select" name="contractor">
                                 <option selected="true" disabled>Choose Contractor</option>
                                 <?php foreach ($contractorsArray as $key => $val) : ?>
                                 <option value="<?= $val['Contractor_ID']; ?>"><?= $val['Contractor_Name']; ?></option>
@@ -684,21 +686,21 @@ The code shoud not:
                             </select>
                         </div>
                         <div class="col-12">
-                            <label for="inputAddress" class="form-label">Address</label>
-                            <input type="text" class="form-control" name="inputAddress" placeholder="1234 Main St">
+                            <label class="form-label">Address</label>
+                            <input type="text" class="form-control" name="address" placeholder="1234 Main St">
                         </div>
                         <div class="col-md-6">
-                            <label for="inputCity" class="form-label">City</label>
-                            <input type="text" class="form-control" name="inputCity">
+                            <label class="form-label">City</label>
+                            <input type="text" class="form-control" name="city">
                         </div>
                         <div class="col-md-4">
-                            <label for="inputState" class="form-label">State</label>
-                            <select class="form-select" name="state">
+                            <label class="form-label">State</label>
+                            <select class="form-select" id="inputState" name="state">
                             </select>
                         </div>
                         <div class="col-md-2">
-                            <label for="inputZip" class="form-label">Zip</label>
-                            <input type="text" class="form-control" name="inputZip">
+                            <label class="form-label">Zip</label>
+                            <input type="text" class="form-control" name="zipcode">
                         </div>
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary" name="createProjSubmit">Create</button>
@@ -714,8 +716,9 @@ The code shoud not:
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
     </script>
-    <script type="text/javascript" src="js/js.js"></script>
     <script src="js/states.js"></script>
+    <script type="text/javascript" src="js/js.js"></script>
+    </script>
 </body>
 
 </html>

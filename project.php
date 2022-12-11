@@ -39,6 +39,7 @@ if (isset($_POST['submitProjMat'])) {
             $_POST['inputProjectCost']
         );
         $project->create_proj_material($connection, $values);
+        $projectMaterialsArray = $project->get_proj_materials($connection, $_GET['ID']); // Get new array
     } catch (Exception $ex) {
         echo $ex->getMessage();
     }
@@ -205,11 +206,11 @@ if (isset($_POST['submitProjMat'])) {
                             <?php foreach ($projectMaterialsArray as $key => $val) : ?>
                             <tr>
                                 <th scope="row"><?= $val['PMID'] ?></th>
-                                <td><?= Materials::get_materials_by_ID($connection, $val['Material_ID'])['Material_Name'] ?>
+                                <td><?= Materials::get_materials_by_ID($connection, $val['Material_ID'])['Material_Name']; ?>
                                 </td>
-                                <td><?= Materials::get_materials_by_ID($connection, $val['Material_ID'])['Material_Description'] ?>
+                                <td><?= Materials::get_materials_by_ID($connection, $val['Material_ID'])['Material_Description']; ?>
                                 </td>
-                                <td><?= '$' . Materials::get_materials_by_ID($connection, $val['Material_ID'])['Material_Cost'] ?>
+                                <td><?= '$' . Materials::get_materials_by_ID($connection, $val['Material_ID'])['Material_Cost']; ?>
                                 </td>
                                 <td><?= $val['Quantity'] ?></td>
                                 <td><?= '$' . $val['Project_Cost'] ?></td>
@@ -218,7 +219,11 @@ if (isset($_POST['submitProjMat'])) {
                                 </td>
                                 <td>
                                     <button type="button" id="editProject" data-bs-target="#EditModal"
-                                        title="Edit Project" data-bs-toggle="modal" class="btn btn-warning btn-small">
+                                        title="Edit Project" data-bs-toggle="modal" data-bs-mid="<?= $val['PMID']; ?>"
+                                        data-bs-material="<?= Materials::get_materials_by_ID($connection, $val['Material_ID'])['Material_Name']; ?>"
+                                        data-bs-projcost="<?= $val['Project_Cost']; ?>"
+                                        data-bs-qty="<?= $val['Quantity_Used']; ?>"
+                                        data-bs-paid="<?= $val['Paid_Amount']; ?>" class="btn btn-warning btn-small">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
                                 </td>
@@ -237,7 +242,7 @@ if (isset($_POST['submitProjMat'])) {
                 <!-- Add Project Materials Form -->
                 <div class="tab-pane fade " id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-3-tab" tabindex="0">
                     <h4>Add Project Materials</h4>
-                    <form class="row" method="POST">
+                    <form class="row" name="createPM" method="POST">
                         <div class="col-md text-center">
                             <div class="form-floating" style="padding-bottom: 10px;">
                                 <select class="form-select" id="matSelect" name="matSelect">
