@@ -60,14 +60,6 @@ if ($logged == 1 && $_SESSION['GID'] == 1) {
 
 <!DOCTYPE html>
 <html style="font-size: 16px" lang="en">
-<!-- You can submit a link to the public GITHub repository or a ZIP file. The submission must contain:
-
-    A document (max 10 pages/slides) describing  what the project does and including relevant screenshots of the website (the document can consist of a number of screenshots and a brief paragraph for each screenshot); The document should also describe what to do in order to make it work on a different environment (e.g., set the base tag, change configuration settings);
-    A picture of the database diagram representing the last version of the database
-    The SQL export of the database, including relevant data for navigating the website (i.e., dummy data), if needed.
-    The project code.
-    Instructions for setting up the database and running the code.
-  -->
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -554,7 +546,7 @@ if ($logged == 1 && $_SESSION['GID'] == 1) {
                 </div>
                 <div class="modal-body">
                     <!-- Edit Form -->
-                    <form class="row">
+                    <form class="row" method="POST" id="editUserForm">
                         <div class="col-12" style="padding-bottom: 10px;">
                             <label for="inputEmail" class="form-label">Email Address:</label>
                             <input type="email" class="form-control" id="inputEmail" placeholder="Test@gmail.com"
@@ -599,7 +591,7 @@ if ($logged == 1 && $_SESSION['GID'] == 1) {
                 </div>
                 <div class="modal-body">
                     <!-- Edit Form -->
-                    <form class="row">
+                    <form class="row" method="POST" id="EditContractorForm">
                         <div class="col-12" style="padding-bottom: 10px;">
                             <label for="inputEdtContractor" class="form-label">Contractor Name:</label>
                             <input type="email" class="form-control" id="inputEdtContractor" name="contractor">
@@ -630,7 +622,7 @@ if ($logged == 1 && $_SESSION['GID'] == 1) {
                 </div>
                 <div class="modal-body">
                     <!-- Edit Form -->
-                    <form class="row">
+                    <form class="row" method="POST" id="EditMatForm">
                         <div class="col-12" style="padding-bottom: 10px;">
                             <label for="inputEdtMat" class="form-label">Material Name:</label>
                             <input type="email" class="form-control" id="inputEdtMat">

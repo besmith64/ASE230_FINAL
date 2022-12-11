@@ -8,7 +8,6 @@ $project = new Project();
 try {
     $response = $project->edit_proj_materials($connection, $_POST['project'], $_POST['pmid'], $_POST['projcost'], $_POST['qty'], $_POST['paid']);
 } catch (Exception $ex) {
-    print_r($_POST);
     echo $ex->getMessage();
 }
 

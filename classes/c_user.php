@@ -32,9 +32,9 @@ class User
         return true;
     }
     //function for editing a users information
-    public static function edit_user($connection, $UID, $GID, $email, $fname, $lname)
+    public static function edit_user($connection, $UID, $GID, $fname, $lname)
     {
-        $query = $connection->prepare('UPDATE t_user SET GID = ?, email = ?, firstname = ?, lastname = ?, modifieddate = current_timestamp() WHERE UID = ?');
-        $query->execute([$GID, $email, $fname, $lname, $UID]);
+        $query = $connection->prepare('UPDATE t_user SET GID = ?, firstname = ?, lastname = ?, modifieddate = current_timestamp() WHERE UID = ?');
+        $query->execute([$GID, $fname, $lname, $UID]);
     }
 }

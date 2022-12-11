@@ -23,6 +23,19 @@ editUserModal.addEventListener("show.bs.modal", function (e) {
   $('.modal-body').find('[id="inputFName"]').val(fname);
   $('.modal-body').find('[id="inputLName"]').val(lname);
   $('.modal-body').find('[id="inputGroup"]').val(gid);
+
+  $('#editUserForm').submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: 'scripts/edit_user.php',
+        data:'UID='+uid+'&GID='+$("#inputGroup").val()+'&fname='+$("#inputFName").val()+'&lname='+$("#inputLName").val(),
+        success: function()
+        {
+          location.href = 'index.php';
+        }
+    });
+  });
 });
 
 editContractorModal.addEventListener("show.bs.modal", function (e) {
@@ -32,9 +45,22 @@ editContractorModal.addEventListener("show.bs.modal", function (e) {
   var id=$(opener).attr('data-bs-cid');
   var contractor=$(opener).attr('data-bs-contractor');
   var description=$(opener).attr('data-bs-description');
-  
+
   $('.modal-body').find('[name="contractor"]').val(contractor);
   $('.modal-body').find('[name="contractorDesc"]').val(description);
+
+  $('#EditContractorForm').submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: 'scripts/edit_contractor.php',
+        data:'CID='+id+'&name='+$("#inputEdtContractor").val()+'&desc='+$("#inputEdtContractorDesc").val(),
+        success: function()
+        {
+          location.href = 'index.php';
+        }
+    });
+  });
 });
 
 editMatModal.addEventListener("show.bs.modal", function (e) {
@@ -49,6 +75,19 @@ editMatModal.addEventListener("show.bs.modal", function (e) {
   $('.modal-body').find('[id="inputEdtMat"]').val(material);
   $('.modal-body').find('[id="inputEdtMatDesc"]').val(description);
   $('.modal-body').find('[id="inputEdtMatCost"]').val(cost);
+
+  $('#EditMatForm').submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: 'scripts/edit_material.php',
+        data:'MID='+mid+'&material='+$("#inputEdtMat").val()+'&desc='+$("#inputEdtMatDesc").val()+'&cost='+$("#inputEdtMatCost").val(),
+        success: function()
+        {
+          location.href = 'index.php';
+        }
+    });
+  });
 });
 
 deleteModal.addEventListener("show.bs.modal", function (e) {
